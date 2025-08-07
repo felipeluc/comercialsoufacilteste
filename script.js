@@ -10,16 +10,16 @@ const metasConsultores = {
 const metasGerais = {
   contas: 28,
   receita: 22000,
-  vendas: 50000,           // ← Edite a meta de VENDAS aqui
-  rentabilidade: 12000     // ← Edite a meta de RENTABILIDADE aqui
+  vendas: 1500000,           // ← Edite a meta de VENDAS aqui
+  rentabilidade: 870000     // ← Edite a meta de RENTABILIDADE aqui
 };
 
 // ==== DADOS DOS CONSULTORES ====
 const consultores = [
-  { nome: "Leticia", contas: 4, receita: 3700, vendas: 12000, rentabilidade: 3100 },
-  { nome: "Marcelo", contas: 3, receita: 1500, vendas: 10500, rentabilidade: 2800 },
-  { nome: "Gabriel", contas: 1, receita: 455, vendas: 6000, rentabilidade: 1500 },
-  { nome: "Glaucia", contas: 1, receita: 500, vendas: 2500, rentabilidade: 700 }
+  { nome: "Leticia", contas: 4, receita: 3700, vendas: 29552, rentabilidade: 0000 },
+  { nome: "Marcelo", contas: 3, receita: 1500, vendas: 9678, rentabilidade: 0000 },
+  { nome: "Gabriel", contas: 1, receita: 455, vendas: 23973, rentabilidade: 0000 },
+  { nome: "Glaucia", contas: 1, receita: 500, vendas: 13555, rentabilidade: 0000 }
 ];
 
 // ==== LOGIN ====

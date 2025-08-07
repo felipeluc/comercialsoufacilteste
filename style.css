@@ -177,18 +177,18 @@ nav {
   font-weight: 500;
 }
 
-/* Imagem de comunicado */
-.comunicado-container {
-  text-align: center;
-  margin: 40px auto 60px;
-  padding: 0 20px;
+/* Card com imagem (comunicado) como um card padrão */
+.comunicado-card {
+  border-left: none;
+  padding: 0;
+  overflow: hidden;
 }
 
 .comunicado-img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;
+  border-radius: 16px;
 }
 
 /* Responsivo */

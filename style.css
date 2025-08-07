@@ -259,3 +259,38 @@ nav {
     flex-direction: column;
   }
 }
+/* Card de Novas Lojas */
+.novas-lojas-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.novas-lojas-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.nova-loja-entry {
+  border-left: 4px solid #30d158;
+  padding-left: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.nova-loja-entry:hover {
+  background-color: #f1f1f1;
+}
+
+.nova-loja-entry strong {
+  color: #007aff;
+}

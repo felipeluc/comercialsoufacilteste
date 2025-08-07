@@ -1,10 +1,18 @@
-body {
-  font-family: Arial, sans-serif;
+/* Reset e base */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: #f2f2f2;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+/* Login */
 .centered {
   display: flex;
   justify-content: center;
@@ -18,147 +26,236 @@ body {
 
 .login-box {
   background: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.login-box h2 {
-  margin-bottom: 20px;
+.login-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
 }
 
-.login-box select,
-.login-box input {
+.login-box input,
+.login-box select {
   width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.login-box input:focus,
+.login-box select:focus {
+  outline: none;
+  border-color: #007aff;
 }
 
 .login-box button {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  padding: 12px 20px;
+  background-color: #007aff;
   border: none;
   color: white;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
+.login-box button:hover {
+  background-color: #005fd1;
+  transform: scale(1.03);
+}
+
+/* Navegação */
 nav {
-  background-color: #007bff;
-  padding: 10px;
+  background: white;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .menu-item {
-  background: transparent;
-  color: white;
+  background: none;
   border: none;
   font-size: 16px;
-  margin-right: 10px;
   cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.menu-item:hover {
+  color: #007aff;
 }
 
 .menu-item.active {
   font-weight: bold;
-  text-decoration: underline;
+  border-bottom: 2px solid #007aff;
 }
 
-.section {
-  padding: 20px;
-}
-
+/* Layout de colunas lado a lado */
 .grid-layout {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: 30px;
+  padding: 30px;
 }
 
-.left-column {
-  flex: 2;
-}
-
+.left-column,
 .right-column {
   flex: 1;
+  min-width: 300px;
+}
+
+/* Títulos */
+.left-column h1,
+.right-column h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Cards do Dashboard */
+.cards-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .card {
   background: white;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
 
 .card h3 {
-  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
 }
 
+/* Barra de progresso */
 .progress-bar {
-  background-color: #e0e0e0;
+  background: #eee;
+  border-radius: 20px;
   height: 10px;
-  border-radius: 5px;
+  margin-top: 10px;
   overflow: hidden;
-  margin-top: 5px;
 }
 
 .progress {
-  background-color: #28a745;
-  height: 10px;
-  border-radius: 5px;
+  height: 100%;
+  background: linear-gradient(90deg, #34c759, #30d158);
+  width: 0%;
+  transition: width 0.5s ease;
 }
 
-.ranking-cards,
-.cards-column {
+/* Ranking */
+.ranking-section {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.ranking-section > div {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
+.ranking-section h3 {
+  margin-bottom: 0;
+}
+
+.ranking-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  min-width: 250px;
+  flex: 1;
+}
+
+/* Card de consultor */
 .consultor-card {
-  background-color: #fff;
-  border-left: 5px solid #007bff;
-  padding: 10px;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border-left: 5px solid #007aff;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-left-color 0.3s ease;
 }
 
+.consultor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+  border-left-color: #34c759;
+}
+
+.consultor-card h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.consultor-card p {
+  margin: 4px 0;
+}
+
+.consultor-card .falta {
+  color: #d00;
+  font-weight: 500;
+}
+
+/* Card com imagem */
 .comunicado-card {
+  background: white;
+  border-radius: 16px;
+  padding: 0;
   overflow: hidden;
-  height: 250px;
-  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  height: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.comunicado-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .comunicado-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* ==== NOVAS LOJAS – RANKING ==== */
-#novasLojasRanking {
-  margin-top: 20px;
-}
-
-.nova-loja-entry {
-  background-color: #fdfdfd;
-  border: 2px dashed #aaa;
-  border-radius: 6px;
-  padding: 10px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.nova-loja-entry strong {
-  color: #333;
-}
-
-.nova-loja-entry span {
   display: block;
-  color: #555;
-  margin-top: 4px;
-  font-weight: bold;
+  border-radius: 16px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .grid-layout {
+    flex-direction: column;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+  }
+
+  .ranking-section {
+    flex-direction: column;
+  }
 }

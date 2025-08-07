@@ -45,7 +45,6 @@ window.login = function () {
 
   gerarDashboard();
   gerarRanking();
-  gerarNovasLojas();
 };
 
 // ==== VERIFICA LOGIN SALVO ====
@@ -55,7 +54,6 @@ window.onload = function () {
     document.getElementById("mainApp").style.display = "block";
     gerarDashboard();
     gerarRanking();
-    gerarNovasLojas();
   }
 };
 
@@ -98,6 +96,7 @@ function gerarDashboard() {
     }
   ];
 
+  // Render cards comuns
   cardsImplantacao.forEach(c => {
     implantacaoContainer.innerHTML += `
       <div class="card">
@@ -121,6 +120,28 @@ function gerarDashboard() {
       </div>
     `;
   });
+
+  // ==== NOVO CARD NOVAS LOJAS RANKING ====
+  const ranking = [...novasLojas].sort((a, b) => b.vendas - a.vendas);
+  let rankingHTML = `
+    <div class="card">
+      <h3>Novas Lojas (Ranking)</h3>
+      <div class="ranking-cards">
+  `;
+
+  ranking.forEach((l, i) => {
+    const emoji = i === 0 ? "🏆" : i === 1 ? "🥈" : i === 2 ? "🥉" : "🔹";
+    rankingHTML += `
+      <div class="consultor-card">
+        <h4>${emoji} ${l.consultor} - ${l.loja}</h4>
+        <p><strong>R$ ${l.vendas.toLocaleString()}</strong></p>
+        <p>${l.cidade}</p>
+      </div>
+    `;
+  });
+
+  rankingHTML += `</div></div>`;
+  faturamentoContainer.innerHTML += rankingHTML;
 }
 
 // ==== RANKING POR CONTAS E RECEITA ====
@@ -144,26 +165,6 @@ function gerarRanking() {
     const metaReceita = metasConsultores[c.nome]?.receita || metasGerais.receita;
     const progresso = Math.min((c.receita / metaReceita) * 100, 100);
     containerReceita.innerHTML += criarCardConsultor(c, progresso, i + 1, "receita", metaReceita);
-  });
-}
-
-// ==== NOVAS LOJAS RANKING ====
-function gerarNovasLojas() {
-  const container = document.getElementById("novasLojasRanking");
-  if (!container) return;
-
-  const ranking = [...novasLojas].sort((a, b) => b.vendas - a.vendas);
-  container.innerHTML = "";
-
-  ranking.forEach((l, i) => {
-    const emoji = i === 0 ? "🏆" : i === 1 ? "🥈" : i === 2 ? "🥉" : "🔹";
-    container.innerHTML += `
-      <div class="consultor-card">
-        <h4>${emoji} ${l.consultor} - ${l.loja}</h4>
-        <p><strong>R$ ${l.vendas.toLocaleString()}</strong></p>
-        <p>${l.cidade}</p>
-      </div>
-    `;
   });
 }
 

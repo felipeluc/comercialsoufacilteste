@@ -109,6 +109,13 @@ function gerarDashboard() {
     `;
   });
 
+  // ==== CARD DO COMUNICADO (GIF) ====
+  implantacaoContainer.innerHTML += `
+    <div class="card comunicado-card">
+      <img src="comunicado.gif" class="comunicado-img" width="100%" height="200" style="pointer-events: none;" oncontextmenu="pedirSenha(event)" />
+    </div>
+  `;
+
   cardsFaturamento.forEach(c => {
     faturamentoContainer.innerHTML += `
       <div class="card">
@@ -142,6 +149,17 @@ function gerarDashboard() {
 
   rankingHTML += `</div></div>`;
   faturamentoContainer.innerHTML += rankingHTML;
+}
+
+// ==== BLOQUEIO DO BOTÃO DIREITO NO GIF ====
+function pedirSenha(event) {
+  event.preventDefault();
+  const senha = prompt("Digite a senha para acessar esta imagem:");
+  if (senha !== "felipe23") {
+    alert("Senha incorreta. Ação bloqueada.");
+  } else {
+    alert("Acesso autorizado.");
+  }
 }
 
 // ==== RANKING POR CONTAS E RECEITA ====

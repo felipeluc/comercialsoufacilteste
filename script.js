@@ -27,6 +27,7 @@ const novasLojas = [
   { consultor: "Leticia", loja: "ReUs", cidade: "São Paulo", vendas: 120000 },
   { consultor: "Gabriel", loja: "Loja B", cidade: "Curitiba", vendas: 450000 },
   { consultor: "Marcelo", loja: "Loja C", cidade: "Rio de Janeiro", vendas: 300000 }
+  { consultor: "Marcelo", loja: "Loja D", cidade: "Rio de Janeiro", vendas: 300000 }
 ];
 
 // ==== LOGIN ====

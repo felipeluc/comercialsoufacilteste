@@ -57,141 +57,96 @@ window.onload = function () {
   }
 };
 
-// ==== DASHBOARD COMERCIAL ====
+// ==== DASHBOARD ====
 function gerarDashboard() {
   const implantacaoContainer = document.getElementById("cardsImplantacao");
   const faturamentoContainer = document.getElementById("cardsFaturamento");
+  const novasLojasContainer = document.getElementById("novasLojasRanking");
 
   implantacaoContainer.innerHTML = "";
   faturamentoContainer.innerHTML = "";
+  novasLojasContainer.innerHTML = "";
 
   const totalContas = consultores.reduce((sum, c) => sum + c.contas, 0);
   const totalReceita = consultores.reduce((sum, c) => sum + c.receita, 0);
   const totalVendas = consultores.reduce((sum, c) => sum + c.vendas, 0);
   const totalRentabilidade = consultores.reduce((sum, c) => sum + c.rentabilidade, 0);
 
-  const cardsImplantacao = [
-    {
-      titulo: "Contas Realizadas",
-      valor: `${totalContas} / ${metasGerais.contas}`,
-      progresso: Math.min((totalContas / metasGerais.contas) * 100, 100)
-    },
-    {
-      titulo: "Receita Realizada",
-      valor: `R$ ${totalReceita.toFixed(2)} / R$ ${metasGerais.receita}`,
-      progresso: Math.min((totalReceita / metasGerais.receita) * 100, 100)
-    }
-  ];
+  // Implantação
+  implantacaoContainer.innerHTML += criarCard("Contas Realizadas", `${totalContas} / ${metasGerais.contas}`, totalContas / metasGerais.contas);
+  implantacaoContainer.innerHTML += criarCard("Receita Realizada", `R$ ${totalReceita.toLocaleString()} / R$ ${metasGerais.receita.toLocaleString()}`, totalReceita / metasGerais.receita);
 
-  const cardsFaturamento = [
-    {
-      titulo: "Vendas",
-      valor: `R$ ${totalVendas.toFixed(2)} / R$ ${metasGerais.vendas}`,
-      progresso: Math.min((totalVendas / metasGerais.vendas) * 100, 100)
-    },
-    {
-      titulo: "Rentabilidade",
-      valor: `R$ ${totalRentabilidade.toFixed(2)} / R$ ${metasGerais.rentabilidade}`,
-      progresso: Math.min((totalRentabilidade / metasGerais.rentabilidade) * 100, 100)
-    }
-  ];
+  // Faturamento
+  faturamentoContainer.innerHTML += criarCard("Vendas", `R$ ${totalVendas.toLocaleString()} / R$ ${metasGerais.vendas.toLocaleString()}`, totalVendas / metasGerais.vendas);
+  faturamentoContainer.innerHTML += criarCard("Rentabilidade", `R$ ${totalRentabilidade.toLocaleString()} / R$ ${metasGerais.rentabilidade.toLocaleString()}`, totalRentabilidade / metasGerais.rentabilidade);
 
-  cardsImplantacao.forEach(c => {
-    implantacaoContainer.innerHTML += `
-      <div class="card">
-        <h3>${c.titulo}</h3>
-        <p>${c.valor}</p>
-        <div class="progress-bar">
-          <div class="progress" style="width: ${c.progresso}%;"></div>
-        </div>
-      </div>
-    `;
-  });
-
-  cardsFaturamento.forEach((c, index) => {
-    faturamentoContainer.innerHTML += `
-      <div class="card">
-        <h3>${c.titulo}</h3>
-        <p>${c.valor}</p>
-        <div class="progress-bar">
-          <div class="progress" style="width: ${c.progresso}%;"></div>
-        </div>
-      </div>
-    `;
-
-    // Adiciona o GIF logo após "Receita Realizada" (index 1)
-    if (index === 1) {
-      faturamentoContainer.innerHTML += `
-        <div class="card comunicado-card" style="margin-top: 20px; width: 100%; height: 250px; overflow: hidden;">
-          <img src="comunicado.gif" alt="Comunicado" class="comunicado-img" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
-      `;
-    }
-  });
-
-  // ==== NOVAS LOJAS (RANKING) com estilo diferente ====
+  // Novas Lojas Ranking
   const ranking = [...novasLojas].sort((a, b) => b.vendas - a.vendas);
-  let rankingHTML = `
-    <div class="card novas-lojas-card" style="border: 2px dashed #999; background: #f7f7f7; padding: 10px;">
-      <h3>🏪 Novas Lojas (Ranking)</h3>
-      <div class="ranking-cards">
-  `;
-
-  ranking.forEach((l, i) => {
-    const emoji = i === 0 ? "🏆" : i === 1 ? "🥈" : i === 2 ? "🥉" : "🔹";
-    rankingHTML += `
-      <div class="nova-loja-entry" style="padding: 10px; border: 1px solid #ccc; margin-bottom: 8px; border-radius: 8px;">
-        <h4>${emoji} ${l.consultor} - ${l.loja}</h4>
-        <p><strong>R$ ${l.vendas.toLocaleString()}</strong></p>
-        <p>${l.cidade}</p>
+  ranking.forEach((loja, index) => {
+    novasLojasContainer.innerHTML += `
+      <div class="nova-loja-entry">
+        <strong>${index + 1}. ${loja.consultor}</strong> - ${loja.loja} (${loja.cidade})<br/>
+        <span>Vendas: R$ ${loja.vendas.toLocaleString()}</span>
       </div>
     `;
   });
-
-  rankingHTML += `</div></div>`;
-  faturamentoContainer.innerHTML += rankingHTML;
 }
 
-// ==== RANKING POR CONTAS E RECEITA ====
-function gerarRanking() {
-  const rankingContas = [...consultores].sort((a, b) => b.contas - a.contas);
-  const rankingReceita = [...consultores].sort((a, b) => b.receita - a.receita);
+function criarCard(titulo, valor, progresso) {
+  progresso = Math.min(progresso * 100, 100);
+  return `
+    <div class="card">
+      <h3>${titulo}</h3>
+      <p>${valor}</p>
+      <div class="progress-bar">
+        <div class="progress" style="width: ${progresso}%;"></div>
+      </div>
+    </div>
+  `;
+}
 
+// ==== GERAR RANKING DE CONSULTOR ====
+function gerarRanking() {
   const containerContas = document.getElementById("rankingContas");
   const containerReceita = document.getElementById("rankingReceita");
 
   containerContas.innerHTML = "";
   containerReceita.innerHTML = "";
 
+  const rankingContas = [...consultores].sort((a, b) => b.contas - a.contas);
+  const rankingReceita = [...consultores].sort((a, b) => b.receita - a.receita);
+
   rankingContas.forEach((c, i) => {
-    const metaContas = metasConsultores[c.nome]?.contas || metasGerais.contas;
-    const progresso = Math.min((c.contas / metaContas) * 100, 100);
-    containerContas.innerHTML += criarCardConsultor(c, progresso, i + 1, "contas", metaContas);
+    const progresso = Math.min((c.contas / metasConsultores[c.nome].contas) * 100, 100);
+    containerContas.innerHTML += criarCardConsultor(c.nome, c.contas + " contas", progresso, i + 1);
   });
 
   rankingReceita.forEach((c, i) => {
-    const metaReceita = metasConsultores[c.nome]?.receita || metasGerais.receita;
-    const progresso = Math.min((c.receita / metaReceita) * 100, 100);
-    containerReceita.innerHTML += criarCardConsultor(c, progresso, i + 1, "receita", metaReceita);
+    const progresso = Math.min((c.receita / metasConsultores[c.nome].receita) * 100, 100);
+    containerReceita.innerHTML += criarCardConsultor(c.nome, "R$ " + c.receita.toLocaleString(), progresso, i + 1);
   });
 }
 
-// ==== CARD DE CONSULTOR ====
-function criarCardConsultor(c, progresso, posicao, tipo, meta) {
-  const emoji = posicao === 1 ? "🏆" : posicao === 2 ? "🥈" : posicao === 3 ? "🥉" : "🎖️";
-  const valor = tipo === "contas" ? `${c.contas} contas` : `R$ ${c.receita.toFixed(2)}`;
-  const falta = tipo === "contas"
-    ? `${Math.max(0, meta - c.contas)} contas`
-    : `R$ ${Math.max(0, meta - c.receita).toFixed(2)}`;
-
+function criarCardConsultor(nome, valor, progresso, posicao) {
+  const emoji = posicao === 1 ? "🏆" : posicao === 2 ? "🥈" : posicao === 3 ? "🥉" : "🔹";
   return `
     <div class="consultor-card">
-      <h4>${emoji} ${c.nome} (Posição ${posicao})</h4>
+      <h4>${emoji} ${nome}</h4>
       <p><strong>${valor}</strong></p>
-      <p class="falta">Faltam: ${falta}</p>
       <div class="progress-bar">
         <div class="progress" style="width: ${progresso}%;"></div>
       </div>
     </div>
   `;
+}
+
+// ==== BLOQUEIO DO GIF ====
+function pedirSenha(event) {
+  event.preventDefault();
+  const senha = prompt("Digite a senha para acessar esta imagem:");
+  if (senha !== "felipe23") {
+    alert("Senha incorreta. Ação bloqueada.");
+  } else {
+    alert("Acesso autorizado.");
+  }
 }

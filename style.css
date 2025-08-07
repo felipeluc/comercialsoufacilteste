@@ -177,6 +177,20 @@ nav {
   font-weight: 500;
 }
 
+/* Imagem de comunicado */
+.comunicado-container {
+  text-align: center;
+  margin: 40px auto 60px;
+  padding: 0 20px;
+}
+
+.comunicado-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 /* Responsivo */
 @media (max-width: 768px) {
   .grid-layout {

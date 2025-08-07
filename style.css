@@ -1,10 +1,18 @@
-body {
+/* Reset e base */
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
+  padding: 0;
 }
 
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+/* Login */
 .centered {
   display: flex;
   justify-content: center;
@@ -12,70 +20,86 @@ body {
   height: 100vh;
 }
 
+.hidden {
+  display: none;
+}
+
 .login-box {
   background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
 }
 
 .login-box input,
 .login-box select {
   width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.login-box input:focus,
+.login-box select:focus {
+  outline: none;
+  border-color: #007aff;
 }
 
 .login-box button {
-  padding: 10px 20px;
-  margin-top: 10px;
-  background-color: #1976d2;
-  color: white;
+  padding: 12px 20px;
+  background-color: #007aff;
   border: none;
-  border-radius: 6px;
+  color: white;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  font-weight: bold;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .login-box button:hover {
-  background-color: #145ca3;
+  background-color: #005fd1;
+  transform: scale(1.03);
 }
 
-.hidden {
-  display: none;
-}
-
+/* Navegação */
 nav {
-  background-color: #1976d2;
-  padding: 10px;
-  display: flex;
+  background: white;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-nav .menu-item {
-  background: transparent;
+.menu-item {
+  background: none;
   border: none;
-  color: white;
-  padding: 10px 20px;
-  cursor: pointer;
   font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-nav .menu-item.active {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+.menu-item:hover {
+  color: #007aff;
 }
 
-.section {
-  padding: 20px;
+.menu-item.active {
+  font-weight: bold;
+  border-bottom: 2px solid #007aff;
 }
 
+/* Layout de colunas lado a lado */
 .grid-layout {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: 30px;
+  padding: 30px;
 }
 
 .left-column,
@@ -84,81 +108,190 @@ nav .menu-item.active {
   min-width: 300px;
 }
 
-.card {
-  background-color: white;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+/* Títulos */
+.left-column h1,
+.right-column h1 {
   margin-bottom: 20px;
-  animation: fadeIn 0.6s ease;
+  font-size: 24px;
 }
 
+/* Cards do Dashboard */
 .cards-column {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Barra de progresso */
+.progress-bar {
+  background: #eee;
+  border-radius: 20px;
+  height: 10px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #34c759, #30d158);
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+/* Ranking */
+.ranking-section {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.ranking-section > div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ranking-section h3 {
+  margin-bottom: 0;
 }
 
 .ranking-cards {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 15px;
+  width: 100%;
+  min-width: 250px;
+  flex: 1;
 }
 
+/* Card de consultor */
 .consultor-card {
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 10px;
-  border: 1px solid #eee;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-  animation: fadeInUp 0.5s ease;
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border-left: 5px solid #007aff;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-left-color 0.3s ease;
+}
+
+.consultor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+  border-left-color: #34c759;
 }
 
 .consultor-card h4 {
-  margin: 0 0 10px;
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 
-.falta {
-  font-size: 0.9em;
-  color: #888;
-  margin-bottom: 10px;
+.consultor-card p {
+  margin: 4px 0;
 }
 
-.progress-bar {
-  background-color: #eee;
-  border-radius: 10px;
-  height: 10px;
-  width: 100%;
-  overflow: hidden;
+.consultor-card .falta {
+  color: #d00;
+  font-weight: 500;
 }
 
-.progress {
-  background-color: #4caf50;
-  height: 100%;
-  border-radius: 10px 0 0 10px;
-}
-
+/* Card com imagem */
 .comunicado-card {
-  animation: pulse 3s infinite ease-in-out;
+  background: white;
+  border-radius: 16px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  height: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.comunicado-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .comunicado-img {
-  border-radius: 12px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  display: block;
+  border-radius: 16px;
 }
 
-/* === ANIMAÇÕES === */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Responsivo */
+@media (max-width: 768px) {
+  .grid-layout {
+    flex-direction: column;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+  }
+
+  .ranking-section {
+    flex-direction: column;
+  }
 }
 
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Card de Novas Lojas */
+.novas-lojas-card {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.015); }
+.novas-lojas-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.nova-loja-entry {
+  border-left: 4px solid #30d158;
+  padding-left: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.nova-loja-entry:hover {
+  background-color: #f1f1f1;
+}
+
+.nova-loja-entry strong {
+  color: #007aff;
 }

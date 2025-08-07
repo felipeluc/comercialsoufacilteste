@@ -108,7 +108,7 @@ function gerarDashboard() {
     `;
   });
 
-  cardsFaturamento.forEach(c => {
+  cardsFaturamento.forEach((c, index) => {
     faturamentoContainer.innerHTML += `
       <div class="card">
         <h3>${c.titulo}</h3>
@@ -118,20 +118,29 @@ function gerarDashboard() {
         </div>
       </div>
     `;
+
+    // Adiciona o GIF logo após "Receita Realizada" (index 1)
+    if (index === 1) {
+      faturamentoContainer.innerHTML += `
+        <div class="card comunicado-card" style="margin-top: 20px; width: 100%; height: 250px; overflow: hidden;">
+          <img src="comunicado.gif" alt="Comunicado" class="comunicado-img" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+      `;
+    }
   });
 
-  // ==== NOVO CARD NOVAS LOJAS RANKING ====
+  // ==== NOVAS LOJAS (RANKING) com estilo diferente ====
   const ranking = [...novasLojas].sort((a, b) => b.vendas - a.vendas);
   let rankingHTML = `
-    <div class="card">
-      <h3>Novas Lojas (Ranking)</h3>
+    <div class="card novas-lojas-card" style="border: 2px dashed #999; background: #f7f7f7; padding: 10px;">
+      <h3>🏪 Novas Lojas (Ranking)</h3>
       <div class="ranking-cards">
   `;
 
   ranking.forEach((l, i) => {
     const emoji = i === 0 ? "🏆" : i === 1 ? "🥈" : i === 2 ? "🥉" : "🔹";
     rankingHTML += `
-      <div class="consultor-card">
+      <div class="nova-loja-entry" style="padding: 10px; border: 1px solid #ccc; margin-bottom: 8px; border-radius: 8px;">
         <h4>${emoji} ${l.consultor} - ${l.loja}</h4>
         <p><strong>R$ ${l.vendas.toLocaleString()}</strong></p>
         <p>${l.cidade}</p>
@@ -141,17 +150,6 @@ function gerarDashboard() {
 
   rankingHTML += `</div></div>`;
   faturamentoContainer.innerHTML += rankingHTML;
-}
-
-// ==== BLOQUEIO DO BOTÃO DIREITO NO GIF ====
-function pedirSenha(event) {
-  event.preventDefault();
-  const senha = prompt("Digite a senha para acessar esta imagem:");
-  if (senha !== "felipe23") {
-    alert("Senha incorreta. Ação bloqueada.");
-  } else {
-    alert("Acesso autorizado.");
-  }
 }
 
 // ==== RANKING POR CONTAS E RECEITA ====

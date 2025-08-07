@@ -1,13 +1,8 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 body {
   font-family: Arial, sans-serif;
-  background: #f9f9f9;
-  color: #333;
+  margin: 0;
+  padding: 0;
+  background-color: #f2f2f2;
 }
 
 .centered {
@@ -23,103 +18,147 @@ body {
 
 .login-box {
   background: white;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  text-align: center;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.login-box input,
-.login-box select {
+.login-box h2 {
+  margin-bottom: 20px;
+}
+
+.login-box select,
+.login-box input {
   width: 100%;
-  padding: 12px;
-  margin: 12px 0;
-  border: 1px solid #ddd;
-  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .login-box button {
-  padding: 12px 20px;
-  background-color: #007aff;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
   border: none;
   color: white;
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: bold;
 }
 
 nav {
-  background: white;
-  padding: 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: #007bff;
+  padding: 10px;
 }
 
 .menu-item {
-  background: none;
+  background: transparent;
+  color: white;
   border: none;
   font-size: 16px;
+  margin-right: 10px;
   cursor: pointer;
 }
 
 .menu-item.active {
   font-weight: bold;
-  border-bottom: 2px solid #007aff;
+  text-decoration: underline;
+}
+
+.section {
+  padding: 20px;
 }
 
 .grid-layout {
   display: flex;
+  gap: 20px;
   flex-wrap: wrap;
-  gap: 30px;
-  padding: 30px;
 }
 
-.left-column,
+.left-column {
+  flex: 2;
+}
+
 .right-column {
   flex: 1;
-  min-width: 300px;
-}
-
-.cards-column,
-.ranking-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
 .card {
   background: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.comunicado-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 16px;
+.card h3 {
+  margin-top: 0;
 }
 
-/* Novas Lojas com estilo diferenciado */
-.novas-lojas-card {
-  background: #fefefe;
-  border: 2px dashed #30d158;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  min-height: 100px;
+.progress-bar {
+  background-color: #e0e0e0;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.progress {
+  background-color: #28a745;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.ranking-cards,
+.cards-column {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.nova-loja-entry {
-  padding: 8px 12px;
-  background-color: #f7fdf9;
-  border-left: 4px solid #30d158;
+.consultor-card {
+  background-color: #fff;
+  border-left: 5px solid #007bff;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comunicado-card {
+  overflow: hidden;
+  height: 250px;
   border-radius: 8px;
+  margin-top: 10px;
+}
+
+.comunicado-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==== NOVAS LOJAS – RANKING ==== */
+#novasLojasRanking {
+  margin-top: 20px;
+}
+
+.nova-loja-entry {
+  background-color: #fdfdfd;
+  border: 2px dashed #aaa;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .nova-loja-entry strong {
-  color: #007aff;
+  color: #333;
+}
+
+.nova-loja-entry span {
+  display: block;
+  color: #555;
+  margin-top: 4px;
+  font-weight: bold;
 }

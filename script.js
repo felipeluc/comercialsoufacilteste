@@ -10,16 +10,23 @@ const metasConsultores = {
 const metasGerais = {
   contas: 28,
   receita: 22000,
-  vendas: 1500000,           // ← Edite a meta de VENDAS aqui
-  rentabilidade: 870000     // ← Edite a meta de RENTABILIDADE aqui
+  vendas: 1500000,
+  rentabilidade: 870000
 };
 
 // ==== DADOS DOS CONSULTORES ====
 const consultores = [
-  { nome: "Leticia", contas: 4, receita: 3700, vendas: 29552, rentabilidade: 0000 },
-  { nome: "Marcelo", contas: 3, receita: 1500, vendas: 9678, rentabilidade: 0000 },
-  { nome: "Gabriel", contas: 1, receita: 455, vendas: 23973, rentabilidade: 0000 },
-  { nome: "Glaucia", contas: 1, receita: 500, vendas: 13555, rentabilidade: 0000 }
+  { nome: "Leticia", contas: 4, receita: 3700, vendas: 29552, rentabilidade: 0 },
+  { nome: "Marcelo", contas: 3, receita: 1500, vendas: 9678, rentabilidade: 0 },
+  { nome: "Gabriel", contas: 1, receita: 455, vendas: 23973, rentabilidade: 0 },
+  { nome: "Glaucia", contas: 1, receita: 500, vendas: 13555, rentabilidade: 0 }
+];
+
+// ==== NOVAS LOJAS (RANKING) ====
+const novasLojas = [
+  { consultor: "Leticia", loja: "Loja A", cidade: "São Paulo", vendas: 120000 },
+  { consultor: "Gabriel", loja: "Loja B", cidade: "Curitiba", vendas: 450000 },
+  { consultor: "Marcelo", loja: "Loja C", cidade: "Rio de Janeiro", vendas: 300000 }
 ];
 
 // ==== LOGIN ====
@@ -32,10 +39,24 @@ window.login = function () {
     return;
   }
 
+  localStorage.setItem("loggedIn", "true");
   document.getElementById("loginContainer").style.display = "none";
   document.getElementById("mainApp").style.display = "block";
 
   gerarDashboard();
+  gerarRanking();
+  gerarNovasLojas();
+};
+
+// ==== VERIFICA LOGIN SALVO ====
+window.onload = function () {
+  if (localStorage.getItem("loggedIn") === "true") {
+    document.getElementById("loginContainer").style.display = "none";
+    document.getElementById("mainApp").style.display = "block";
+    gerarDashboard();
+    gerarRanking();
+    gerarNovasLojas();
+  }
 };
 
 // ==== DASHBOARD COMERCIAL ====
@@ -100,8 +121,6 @@ function gerarDashboard() {
       </div>
     `;
   });
-
-  gerarRanking();
 }
 
 // ==== RANKING POR CONTAS E RECEITA ====
@@ -125,6 +144,26 @@ function gerarRanking() {
     const metaReceita = metasConsultores[c.nome]?.receita || metasGerais.receita;
     const progresso = Math.min((c.receita / metaReceita) * 100, 100);
     containerReceita.innerHTML += criarCardConsultor(c, progresso, i + 1, "receita", metaReceita);
+  });
+}
+
+// ==== NOVAS LOJAS RANKING ====
+function gerarNovasLojas() {
+  const container = document.getElementById("novasLojasRanking");
+  if (!container) return;
+
+  const ranking = [...novasLojas].sort((a, b) => b.vendas - a.vendas);
+  container.innerHTML = "";
+
+  ranking.forEach((l, i) => {
+    const emoji = i === 0 ? "🏆" : i === 1 ? "🥈" : i === 2 ? "🥉" : "🔹";
+    container.innerHTML += `
+      <div class="consultor-card">
+        <h4>${emoji} ${l.consultor} - ${l.loja}</h4>
+        <p><strong>R$ ${l.vendas.toLocaleString()}</strong></p>
+        <p>${l.cidade}</p>
+      </div>
+    `;
   });
 }
 

@@ -96,7 +96,6 @@ function gerarDashboard() {
     }
   ];
 
-  // Render cards comuns
   cardsImplantacao.forEach(c => {
     implantacaoContainer.innerHTML += `
       <div class="card">
@@ -108,13 +107,6 @@ function gerarDashboard() {
       </div>
     `;
   });
-
-  // ==== CARD DO COMUNICADO (GIF) ====
-  implantacaoContainer.innerHTML += `
-    <div class="card comunicado-card">
-      <img src="comunicado.gif" class="comunicado-img" width="100%" height="200" style="pointer-events: none;" oncontextmenu="pedirSenha(event)" />
-    </div>
-  `;
 
   cardsFaturamento.forEach(c => {
     faturamentoContainer.innerHTML += `

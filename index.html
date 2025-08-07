@@ -38,7 +38,6 @@
 
     <section id="dashboard" class="section">
       <div class="grid-layout">
-
         <!-- Dashboard Comercial - lado esquerdo -->
         <div class="left-column">
           <h1>Dashboard Comercial</h1>
@@ -48,6 +47,11 @@
             <div style="flex: 1">
               <h3>🚀 Por Implantação</h3>
               <div id="cardsImplantacao" class="cards-column"></div>
+
+              <!-- GIF comunicado -->
+              <div class="card comunicado-card" style="margin-top: 20px; width: 100%; height: 250px; overflow: hidden;">
+                <img src="comunicado.gif" alt="Comunicado" class="comunicado-img" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
             </div>
 
             <!-- Por Faturamento -->
@@ -65,20 +69,27 @@
             <!-- Por Contas -->
             <div>
               <h3>📊 Por Contas</h3>
-              <div id="rankingContas" class="ranking-cards">
-                <!-- Cards via JS -->
-              </div>
+              <div id="rankingContas" class="ranking-cards"></div>
             </div>
+
             <!-- Por Receita -->
             <div>
               <h3>💰 Por Receita</h3>
-              <div id="rankingReceita" class="ranking-cards">
-                <!-- Cards via JS -->
+              <div id="rankingReceita" class="ranking-cards"></div>
+            </div>
+
+            <!-- Novas Lojas (Ranking) -->
+            <div class="ranking-cards">
+              <h3>🏪 Novas Lojas (Ranking)</h3>
+              <div class="novas-lojas-card">
+                <div class="nova-loja-entry"><strong>Loja A</strong> — R$ 25.000</div>
+                <div class="nova-loja-entry"><strong>Loja B</strong> — R$ 18.750</div>
+                <!-- Adicione mais blocos aqui -->
               </div>
             </div>
+
           </div>
         </div>
-
       </div>
     </section>
   </div>

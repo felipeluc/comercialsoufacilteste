@@ -22,13 +22,6 @@ const consultores = [
   { nome: "Glaucia", contas: 1, receita: 500, vendas: 13555, rentabilidade: 0 }
 ];
 
-// ==== NOVAS LOJAS (RANKING) ====
-const novasLojas = [
-  { consultor: "Leticia", loja: "ReUs", cidade: "São Paulo", vendas: 120000 },
-  { consultor: "Gabriel", loja: "Loja B", cidade: "Curitiba", vendas: 450000 },
-  { consultor: "Marcelo", loja: "Loja C", cidade: "Rio de Janeiro", vendas: 300000 }
-];
-
 // ==== LOGIN ====
 window.login = function () {
   const user = document.getElementById("userSelect").value;

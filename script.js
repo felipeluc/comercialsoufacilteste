@@ -23,8 +23,8 @@ const consultores = [
 ];
 
 // ==== DADOS VENDAS MENSAL (para gráfico) ====
-const vendasMesPassado = 76000;
-const vendasMesAtual = 120000;
+const vendasMesPassado = 116000;
+const vendasMesAtual = 76000;
 
 // ==== LOGIN ====
 window.login = function () {

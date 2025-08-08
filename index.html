@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Bloquear botão direito com senha
     document.addEventListener('contextmenu', function (e) {
       e.preventDefault();
       const senha = prompt("Área protegida. Digite a senha:");
@@ -43,7 +42,6 @@
         <!-- Dashboard Comercial - lado esquerdo -->
         <div class="left-column">
           <h1>Dashboard Comercial</h1>
-
           <div class="ranking-section" style="display: flex; gap: 20px; flex-wrap: wrap;">
             <!-- Por Implantação -->
             <div style="flex: 1">
@@ -57,34 +55,20 @@
               <div id="cardsFaturamento" class="cards-column"></div>
             </div>
           </div>
-
-          <!-- Card de Ranking de Vendas -->
-          <div id="rankingVendasCard" class="card" style="margin-top: 20px;">
-            <h3>🏅 Ranking de Vendas</h3>
-            <div id="rankingVendas" class="ranking-cards"></div>
-          </div>
         </div>
 
         <!-- Ranking de Consultores - lado direito -->
         <div class="right-column">
           <h1>Ranking de Consultores</h1>
           <div class="ranking-section">
-            <!-- Por Contas -->
             <div>
               <h3>📊 Por Contas</h3>
               <div id="rankingContas" class="ranking-cards"></div>
             </div>
-            <!-- Por Receita -->
             <div>
               <h3>💰 Por Receita</h3>
               <div id="rankingReceita" class="ranking-cards"></div>
             </div>
-          </div>
-
-          <!-- Card de gráfico de vendas por período -->
-          <div id="graficoVendasCard" class="card" style="margin-top: 20px;">
-            <h3>📈 Vendas Gerais por Período</h3>
-            <canvas id="graficoVendas"></canvas>
           </div>
         </div>
 

@@ -22,9 +22,9 @@ const consultores = [
   { nome: "Glaucia", contas: 1, receita: 500, vendas: 13555, rentabilidade: 0 }
 ];
 
-// ==== DADOS VENDAS MENSAL (para gráfico) ====
-const vendasMesPassado = 116000;
-const vendasMesAtual = 76000;
+// ==== DADOS VENDAS MENSAL ====
+const vendasMesPassado = 90000;
+const vendasMesAtual = 120000;
 
 // ==== LOGIN ====
 window.login = function () {
@@ -55,59 +55,45 @@ function gerarDashboard() {
   const totalVendas = consultores.reduce((sum, c) => sum + c.vendas, 0);
   const totalRentabilidade = consultores.reduce((sum, c) => sum + c.rentabilidade, 0);
 
-  const cardsImplantacao = [
-    {
-      titulo: "Contas Realizadas",
-      valor: `${totalContas} / ${metasGerais.contas}`,
-      progresso: Math.min((totalContas / metasGerais.contas) * 100, 100)
-    },
-    {
-      titulo: "Receita Realizada",
-      valor: `R$ ${totalReceita.toFixed(2)} / R$ ${metasGerais.receita}`,
-      progresso: Math.min((totalReceita / metasGerais.receita) * 100, 100)
-    }
-  ];
+  // Cards coluna Por Implantação
+  implantacaoContainer.innerHTML += criarCard("Contas Realizadas", `${totalContas} / ${metasGerais.contas}`, totalContas / metasGerais.contas * 100);
+  implantacaoContainer.innerHTML += criarCard("Receita Realizada", `R$ ${totalReceita.toFixed(2)} / R$ ${metasGerais.receita}`, totalReceita / metasGerais.receita * 100);
 
-  const cardsFaturamento = [
-    {
-      titulo: "Vendas",
-      valor: `R$ ${totalVendas.toFixed(2)} / R$ ${metasGerais.vendas}`,
-      progresso: Math.min((totalVendas / metasGerais.vendas) * 100, 100)
-    },
-    {
-      titulo: "Rentabilidade",
-      valor: `R$ ${totalRentabilidade.toFixed(2)} / R$ ${metasGerais.rentabilidade}`,
-      progresso: Math.min((totalRentabilidade / metasGerais.rentabilidade) * 100, 100)
-    }
-  ];
+  // Ranking de Vendas dentro da coluna Por Implantação
+  implantacaoContainer.innerHTML += `
+    <div class="card">
+      <h4>🏅 Ranking de Vendas</h4>
+      <div id="rankingVendas"></div>
+    </div>
+  `;
 
-  cardsImplantacao.forEach(c => {
-    implantacaoContainer.innerHTML += `
-      <div class="card">
-        <h3>${c.titulo}</h3>
-        <p>${c.valor}</p>
-        <div class="progress-bar">
-          <div class="progress" style="width: ${c.progresso}%;"></div>
-        </div>
-      </div>
-    `;
-  });
+  // Cards coluna Por Faturamento
+  faturamentoContainer.innerHTML += criarCard("Vendas", `R$ ${totalVendas.toFixed(2)} / R$ ${metasGerais.vendas}`, totalVendas / metasGerais.vendas * 100);
+  faturamentoContainer.innerHTML += criarCard("Rentabilidade", `R$ ${totalRentabilidade.toFixed(2)} / R$ ${metasGerais.rentabilidade}`, totalRentabilidade / metasGerais.rentabilidade * 100);
 
-  cardsFaturamento.forEach(c => {
-    faturamentoContainer.innerHTML += `
-      <div class="card">
-        <h3>${c.titulo}</h3>
-        <p>${c.valor}</p>
-        <div class="progress-bar">
-          <div class="progress" style="width: ${c.progresso}%;"></div>
-        </div>
-      </div>
-    `;
-  });
+  // Gráfico dentro da coluna Por Faturamento
+  faturamentoContainer.innerHTML += `
+    <div class="card">
+      <h4>📈 Vendas Gerais por Período</h4>
+      <canvas id="graficoVendas"></canvas>
+    </div>
+  `;
 
   gerarRanking();
   gerarRankingVendas();
   gerarGraficoVendas();
+}
+
+function criarCard(titulo, valor, progresso) {
+  return `
+    <div class="card">
+      <h3>${titulo}</h3>
+      <p>${valor}</p>
+      <div class="progress-bar">
+        <div class="progress" style="width: ${Math.min(progresso, 100)}%;"></div>
+      </div>
+    </div>
+  `;
 }
 
 // ==== RANKING POR CONTAS E RECEITA ====
@@ -134,14 +120,10 @@ function gerarRanking() {
   });
 }
 
-// ==== CARD DE CONSULTOR ====
 function criarCardConsultor(c, progresso, posicao, tipo, meta) {
   const emoji = posicao === 1 ? "🏆" : posicao === 2 ? "🥈" : posicao === 3 ? "🥉" : "🎖️";
   const valor = tipo === "contas" ? `${c.contas} contas` : `R$ ${c.receita.toFixed(2)}`;
-  const falta = tipo === "contas"
-    ? `${Math.max(0, meta - c.contas)} contas`
-    : `R$ ${Math.max(0, meta - c.receita).toFixed(2)}`;
-
+  const falta = tipo === "contas" ? `${Math.max(0, meta - c.contas)} contas` : `R$ ${Math.max(0, meta - c.receita).toFixed(2)}`;
   return `
     <div class="consultor-card">
       <h4>${emoji} ${c.nome} (Posição ${posicao})</h4>
@@ -154,7 +136,7 @@ function criarCardConsultor(c, progresso, posicao, tipo, meta) {
   `;
 }
 
-// ==== RANKING DE VENDAS ====
+// ==== RANKING DE VENDAS COMPACTO ====
 function gerarRankingVendas() {
   const ranking = [...consultores].sort((a, b) => b.vendas - a.vendas);
   const container = document.getElementById("rankingVendas");
@@ -163,14 +145,15 @@ function gerarRankingVendas() {
   ranking.forEach((c, i) => {
     const emoji = i === 0 ? "🏆" : i === 1 ? "🥈" : i === 2 ? "🥉" : "🎖️";
     container.innerHTML += `
-      <div class="consultor-card">
-        <h4>${emoji} ${c.nome} - R$ ${c.vendas.toFixed(2)}</h4>
+      <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 2px 0;">
+        <span>${emoji} ${c.nome}</span>
+        <strong>R$ ${c.vendas.toLocaleString()}</strong>
       </div>
     `;
   });
 }
 
-// ==== GRÁFICO DE VENDAS POR PERÍODO ====
+// ==== GRÁFICO DE VENDAS ====
 function gerarGraficoVendas() {
   const ctx = document.getElementById("graficoVendas").getContext("2d");
   const cor = vendasMesAtual >= vendasMesPassado ? "green" : "red";
@@ -189,17 +172,11 @@ function gerarGraficoVendas() {
       }]
     },
     options: {
-      responsive: true,
       plugins: {
         tooltip: {
           callbacks: {
             label: ctx => `R$ ${ctx.parsed.y.toLocaleString()}`
           }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: false
         }
       }
     }

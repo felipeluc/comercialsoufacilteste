@@ -10,17 +10,21 @@ const metasConsultores = {
 const metasGerais = {
   contas: 28,
   receita: 22000,
-  vendas: 1500000,           // ← Edite a meta de VENDAS aqui
-  rentabilidade: 870000     // ← Edite a meta de RENTABILIDADE aqui
+  vendas: 1500000,
+  rentabilidade: 870000
 };
 
 // ==== DADOS DOS CONSULTORES ====
 const consultores = [
-  { nome: "Leticia", contas: 5, receita: 4700, vendas: 29552, rentabilidade: 0000 },
-  { nome: "Marcelo", contas: 3, receita: 1500, vendas: 9678, rentabilidade: 0000 },
-  { nome: "Gabriel", contas: 1, receita: 455, vendas: 23973, rentabilidade: 0000 },
-  { nome: "Glaucia", contas: 1, receita: 500, vendas: 13555, rentabilidade: 0000 }
+  { nome: "Leticia", contas: 5, receita: 4700, vendas: 29552, rentabilidade: 0 },
+  { nome: "Marcelo", contas: 3, receita: 1500, vendas: 9678, rentabilidade: 0 },
+  { nome: "Gabriel", contas: 1, receita: 455, vendas: 23973, rentabilidade: 0 },
+  { nome: "Glaucia", contas: 1, receita: 500, vendas: 13555, rentabilidade: 0 }
 ];
+
+// ==== DADOS VENDAS MENSAL (para gráfico) ====
+const vendasMesPassado = 90000;
+const vendasMesAtual = 120000;
 
 // ==== LOGIN ====
 window.login = function () {
@@ -102,6 +106,8 @@ function gerarDashboard() {
   });
 
   gerarRanking();
+  gerarRankingVendas();
+  gerarGraficoVendas();
 }
 
 // ==== RANKING POR CONTAS E RECEITA ====
@@ -146,4 +152,56 @@ function criarCardConsultor(c, progresso, posicao, tipo, meta) {
       </div>
     </div>
   `;
+}
+
+// ==== RANKING DE VENDAS ====
+function gerarRankingVendas() {
+  const ranking = [...consultores].sort((a, b) => b.vendas - a.vendas);
+  const container = document.getElementById("rankingVendas");
+  container.innerHTML = "";
+
+  ranking.forEach((c, i) => {
+    const emoji = i === 0 ? "🏆" : i === 1 ? "🥈" : i === 2 ? "🥉" : "🎖️";
+    container.innerHTML += `
+      <div class="consultor-card">
+        <h4>${emoji} ${c.nome} - R$ ${c.vendas.toFixed(2)}</h4>
+      </div>
+    `;
+  });
+}
+
+// ==== GRÁFICO DE VENDAS POR PERÍODO ====
+function gerarGraficoVendas() {
+  const ctx = document.getElementById("graficoVendas").getContext("2d");
+  const cor = vendasMesAtual >= vendasMesPassado ? "green" : "red";
+
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: ["Mês Passado", "Mês Atual"],
+      datasets: [{
+        label: "Vendas",
+        data: [vendasMesPassado, vendasMesAtual],
+        borderColor: cor,
+        backgroundColor: cor,
+        fill: false,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: ctx => `R$ ${ctx.parsed.y.toLocaleString()}`
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
 }

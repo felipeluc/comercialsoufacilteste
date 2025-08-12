@@ -1,109 +1,139 @@
-/* Reset e base */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background: #f5f5f7;
-  color: #1d1d1f;
-  line-height: 1.45;
+/* Fonte e reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
-/* Container centralizado */
-.app-container {
-  max-width: 1200px;
-  margin: 22px auto;
-  padding: 12px;
+html, body {
+  height: 100%;
+  background: linear-gradient(180deg, #f6f9ff 0%, #ffffff 100%);
+  color: #1c1c1e;
 }
 
-/* Login */
-.centered { display:flex; align-items:center; justify-content:center; height:100vh; }
-.hidden { display:none; }
+.hidden {
+  display: none;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .login-box {
-  background: white; padding: 36px; border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.06); width: 360px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  text-align: center;
+  width: 300px;
 }
-.login-box input, .login-box select {
-  width:100%; padding:10px; margin:10px 0; border-radius:10px; border:1px solid #e6e6ea; background:#fafafa;
-}
+
+.login-box select,
+.login-box input,
 .login-box button {
-  width:100%; padding:12px; border-radius:10px; border:none; background:#007aff; color:white; font-weight:600;
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
 }
 
-/* Navegação */
-.top-nav {
-  background: white; padding:10px 16px; border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04); display:flex; justify-content:space-between; align-items:center;
-  margin-bottom: 18px;
+.login-box button {
+  background: #007aff;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
 }
-.menu-item { background:none; border:none; font-size:15px; cursor:pointer; padding:8px 12px; }
-.menu-item.active { font-weight:600; border-bottom: 2px solid #007aff; }
 
-/* Layout principal: duas colunas (esquerda maior, direita menor) */
+nav {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(12px);
+  padding: 1rem;
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.menu-item {
+  background: transparent;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.menu-item.active {
+  background: #007aff;
+  color: white;
+}
+
+.section {
+  padding: 2rem;
+}
+
+/* Layout das colunas */
 .grid-layout {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 26px;
+  grid-template-columns: 1.2fr 0.8fr; /* ranking mais largo */
+  gap: 2rem;
 }
 
-/* Colunas */
-.left-column, .right-column { background: transparent; }
-.page-header h1 { font-size:22px; margin-bottom:6px; font-weight:700; }
-.page-header.small h1 { font-size:18px; margin-bottom:6px; }
-
-/* Subtitulo leve */
-.subtitle { color:#6b6b70; font-size:13px; margin-bottom:12px; }
-
-/* Grid interno de painéis (2 colunas dentro da coluna esquerda) */
-.stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-/* Painel que recebe os cards (script insere .card dentro deste container) */
-.panel { display:flex; flex-direction:column; gap:12px; }
-.panel h3 { font-size:15px; margin-bottom:6px; }
-
-/* cards-column: quando o script inserir vários .card, eles virão organizados em grid (auto-fit) */
-.cards-column {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
-  align-items: start;
+.left-column h1,
+.right-column h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
 }
 
-/* Card base */
-.card {
-  background: white; border-radius: 14px; padding: 14px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.04); transition: transform .18s ease;
+.ranking-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
-.card:hover { transform: translateY(-4px); }
 
-/* Progress bar */
-.progress-bar { background:#f0f0f5; border-radius:20px; height:10px; overflow:hidden; margin-top:10px; }
-.progress { height:100%; width:0%; background: linear-gradient(90deg,#34c759,#30d158); transition: width .5s ease; }
-
-/* Ranking section (direita) */
-.ranking-section.two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.ranking-cards { display:flex; flex-direction:column; gap:10px; max-height: 620px; overflow:auto; padding-right:6px; }
-
-/* Consultor card refinado */
-.consultor-card {
-  border-radius: 12px; padding:12px; display:flex; flex-direction:column; gap:8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.035); border-left: 4px solid #007aff;
+.card-group h3 {
+  font-size: 1rem;
+  margin-bottom: 0.8rem;
+  color: #333;
 }
-.consultor-card h4 { font-size:15px; margin-bottom:4px; }
-.consultor-card .falta { color:#d00; font-weight:500; }
 
-/* Compact ranking (vendas / rentabilidade) — linha por linha mais limpa */
-.compact-ranking > div {
-  display:flex; justify-content:space-between; align-items:center; padding:8px 6px; font-size:14px;
-  border-bottom: 1px solid #f2f2f6;
+.cards-column,
+.ranking-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
-.compact-ranking > div:last-child { border-bottom:none; }
 
-/* Responsivo */
-@media (max-width: 980px) {
-  .grid-layout { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: 1fr; }
-  .ranking-section.two-columns { grid-template-columns: 1fr; }
+/* Estilo dos cards */
+.cards-column div,
+.ranking-cards div {
+  background: white;
+  padding: 1rem;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease;
+}
+
+.cards-column div:hover,
+.ranking-cards div:hover {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 900px) {
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
 }

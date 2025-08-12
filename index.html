@@ -32,69 +32,48 @@
   </div>
 
   <div id="mainApp" class="hidden">
-    <div class="app-container">
-      <nav class="top-nav">
-        <div class="nav-left">
-          <button class="menu-item active" data-target="dashboard">Análise de Metas</button>
-        </div>
-        <div class="nav-right">
-          <!-- espaço para futuros botões / filtros -->
-        </div>
-      </nav>
+    <nav>
+      <button class="menu-item active" data-target="dashboard">Análise de Metas</button>
+    </nav>
 
-      <section id="dashboard" class="section">
-        <div class="grid-layout">
+    <section id="dashboard" class="section">
+      <div class="grid-layout">
 
-          <!-- LADO ESQUERDO: Visão geral + estatísticas -->
-          <div class="left-column">
-            <header class="page-header">
-              <h1>Dashboard Comercial</h1>
-              <p class="subtitle">Visão geral de implantação, faturamento e rentabilidade</p>
-            </header>
-
-            <!-- Grid de painéis (2 colunas) - aqui o script adiciona cards dentro dos containers -->
-            <div class="stats-grid">
-              <!-- Painel Implantação (o script injeta os cards aqui: Contas, Receita, Ranking de Vendas, Ranking Rentabilidade) -->
-              <div class="panel">
-                <h3>🚀 Por Implantação</h3>
-                <div id="cardsImplantacao" class="cards-column"></div>
-              </div>
-
-              <!-- Painel Faturamento (o script injeta Vendas, Rentabilidade, gráfico etc) -->
-              <div class="panel">
-                <h3>💵 Por Faturamento</h3>
-                <div id="cardsFaturamento" class="cards-column"></div>
-              </div>
+        <!-- Dashboard Comercial - lado esquerdo -->
+        <div class="left-column">
+          <h1>Dashboard Comercial</h1>
+          <div class="ranking-section">
+            <!-- Por Implantação -->
+            <div class="card-group">
+              <h3>🚀 Por Implantação</h3>
+              <div id="cardsImplantacao" class="cards-column"></div>
             </div>
 
-            <!-- Espaço extra para widgets grandes (ex: comunicados, destaque) -->
-            <div class="wide-row">
-              <!-- caso queira colocar algo grande abaixo, ex: comunicados -->
+            <!-- Por Faturamento -->
+            <div class="card-group">
+              <h3>💵 Por Faturamento</h3>
+              <div id="cardsFaturamento" class="cards-column"></div>
             </div>
           </div>
+        </div>
 
-          <!-- LADO DIREITO: Rankings por consultor -->
-          <div class="right-column">
-            <header class="page-header small">
-              <h1>Ranking de Consultores</h1>
-            </header>
-
-            <div class="ranking-section two-columns">
-              <div class="card">
-                <h3>📊 Por Contas</h3>
-                <div id="rankingContas" class="ranking-cards"></div>
-              </div>
-
-              <div class="card">
-                <h3>💰 Por Receita</h3>
-                <div id="rankingReceita" class="ranking-cards"></div>
-              </div>
+        <!-- Ranking de Consultores - lado direito -->
+        <div class="right-column">
+          <h1>Ranking de Consultores</h1>
+          <div class="ranking-section">
+            <div class="card-group">
+              <h3>📊 Por Contas</h3>
+              <div id="rankingContas" class="ranking-cards"></div>
+            </div>
+            <div class="card-group">
+              <h3>💰 Por Receita</h3>
+              <div id="rankingReceita" class="ranking-cards"></div>
             </div>
           </div>
-
         </div>
-      </section>
-    </div>
+
+      </div>
+    </section>
   </div>
 
   <script src="script.js"></script>

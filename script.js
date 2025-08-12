@@ -16,15 +16,15 @@ const metasGerais = {
 
 // ==== DADOS DOS CONSULTORES ====
 const consultores = [
-  { nome: "Leticia", contas: 5, receita: 4700, vendas: 29552, rentabilidade: 0 },
-  { nome: "Marcelo", contas: 3, receita: 1500, vendas: 9678, rentabilidade: 0 },
-  { nome: "Gabriel", contas: 1, receita: 455, vendas: 23973, rentabilidade: 0 },
-  { nome: "Glaucia", contas: 1, receita: 500, vendas: 13555, rentabilidade: 0 }
+  { nome: "Leticia", contas: 5, receita: 4700, vendas: 89869, rentabilidade: 55729 },
+  { nome: "Marcelo", contas: 3, receita: 1500, vendas: 44274, rentabilidade: 25173 },
+  { nome: "Gabriel", contas: 1, receita: 455, vendas: 65220, rentabilidade: 40589 },
+  { nome: "Glaucia", contas: 1, receita: 500, vendas: 31041, rentabilidade: 14744 }
 ];
 
 // ==== DADOS VENDAS MENSAL ====
-const vendasMesPassado = 90000;
-const vendasMesAtual = 120000;
+const vendasMesPassado = 282952;
+const vendasMesAtual = 156227;
 
 // ==== LOGIN ====
 window.login = function () {
@@ -59,11 +59,15 @@ function gerarDashboard() {
   implantacaoContainer.innerHTML += criarCard("Contas Realizadas", `${totalContas} / ${metasGerais.contas}`, totalContas / metasGerais.contas * 100);
   implantacaoContainer.innerHTML += criarCard("Receita Realizada", `R$ ${totalReceita.toFixed(2)} / R$ ${metasGerais.receita}`, totalReceita / metasGerais.receita * 100);
 
-  // Ranking de Vendas dentro da coluna Por Implantação
+  // Ranking de Vendas + Ranking de Rentabilidade
   implantacaoContainer.innerHTML += `
     <div class="card">
       <h4>🏅 Ranking de Vendas</h4>
       <div id="rankingVendas"></div>
+    </div>
+    <div class="card">
+      <h4>💰 Ranking de Rentabilidade</h4>
+      <div id="rankingRentabilidade"></div>
     </div>
   `;
 
@@ -81,6 +85,7 @@ function gerarDashboard() {
 
   gerarRanking();
   gerarRankingVendas();
+  gerarRankingRentabilidade();
   gerarGraficoVendas();
 }
 
@@ -148,6 +153,23 @@ function gerarRankingVendas() {
       <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 2px 0;">
         <span>${emoji} ${c.nome}</span>
         <strong>R$ ${c.vendas.toLocaleString()}</strong>
+      </div>
+    `;
+  });
+}
+
+// ==== RANKING DE RENTABILIDADE COMPACTO ====
+function gerarRankingRentabilidade() {
+  const ranking = [...consultores].sort((a, b) => b.rentabilidade - a.rentabilidade);
+  const container = document.getElementById("rankingRentabilidade");
+  container.innerHTML = "";
+
+  ranking.forEach((c, i) => {
+    const emoji = i === 0 ? "💎" : i === 1 ? "🥈" : i === 2 ? "🥉" : "🎖️";
+    container.innerHTML += `
+      <div style="display: flex; justify-content: space-between; font-size: 14px; padding: 2px 0;">
+        <span>${emoji} ${c.nome}</span>
+        <strong>R$ ${c.rentabilidade.toLocaleString()}</strong>
       </div>
     `;
   });

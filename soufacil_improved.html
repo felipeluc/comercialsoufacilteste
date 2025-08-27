@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SouFacil - Plataforma de Crediário Digital</title>
+    <style>
+        /* VARIÁVEIS DE CONFIGURAÇÃO - INÍCIO */
+        :root {
+            --cta-text-main: "Fale Conosco";
+            --cta-text-large: "Fale Conosco";
+            --partner-image-1: "parceiro1.png";
+            --partner-image-2: "parceiro2.png";
+            --partner-image-3: "parceiro3.png";
+            --partner-image-4: "parceiro4.png";
+            --partner-image-5: "parceiro5.png";
+            --partner-image-6: "parceiro6.png";
+            --video-conheca-nos: "videosoufacil.mp4";
+        }
+        /* VARIÁVEIS DE CONFIGURAÇÃO - FIM */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a202c;
+            overflow-x: hidden;
+            background: #ffffff;
+        }
+
+        /* Cores e variáveis */
+        :root {
+            --primary-blue: #0066cc;
+            --secondary-blue: #1e40af;
+            --primary-green: #00b894;
+            --secondary-green: #00a085;
+            --dark-blue: #0f172a;
+            --light-gray: #f8fafc;
+            --medium-gray: #64748b;
+            --white: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #0066cc 0%, #00b894 100%);
+            --gradient-secondary: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --gradient-tech: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-glow: 0 0 30px rgba(0, 102, 204, 0.3);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(0, 102, 204, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--dark-blue);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: var(--gradient-primary);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: var(--gradient-dark);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 102, 204, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 184, 148, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(0, 102, 204, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content .highlight {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1.25rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 1.25rem 2.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            transform: perspective(1000px) rotateY(-15deg);
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .tech-card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .tech-card h3 {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 0;
+            background: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(0, 102, 204, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(0, 184, 148, 0.05) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header .badge {
+            display: inline-block;
+            background: rgba(0, 102, 204, 0.1);
+            color: var(--primary-blue);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 102, 204, 0.2);
+        }
+
+        .section-header h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--dark-blue);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--medium-gray);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 3.5rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 102, 204, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 102, 204, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .feature-card:hover::after {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .feature-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-card p {
+            color: var(--medium-gray);
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .feature-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 102, 204, 0.1);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--medium-gray);
+            margin-top: 0.25rem;
+        }
+
+        /* Partners Section */
+        .partners {
+            padding: 8rem 0;
+            background: var(--gradient-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .partners::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(0, 102, 204, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(0, 184, 148, 0.1) 0%, transparent 50%);
+        }
+
+        .partners-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .partners-header .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .partners-header h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .partners-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .partners-showcase {
+            position: relative;
+            z-index: 2;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            align-items: center;
+            justify-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .partner-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100%;
+            max-width: 200px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .partner-logo {
+            width: 100%;
+            height: 60px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover .partner-logo {
+            opacity: 1;
+            filter: brightness(0) invert(1);
+        }
+
+        .partners-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .partner-stat {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .partner-stat h3 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .partner-stat p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Conheça-nos Section */
+        .about-us {
+            padding: 8rem 0;
+            background: var(--light-gray);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-us .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .video-section-wrapper {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-container {
+            max-width: 400px; /* Largura para formato vertical */
+            height: 700px; /* Altura para formato vertical */
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            background: black;
+            z-index: 10;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garante que o vídeo preencha o container */
+            display: block;
+        }
+
+        .floating-element {
+            position: absolute;
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        .floating-element.dollar-sign {
+            top: 10%;
+            left: 15%;
+            animation-delay: 0s;
+            font-weight: bold;
+            font-size: 3rem;
+        }
+
+        .floating-element.credit-card {
+            top: 20%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+
+        .floating-element.chart-up {
+            top: 60%;
+            left: 8%;
+            animation-delay: 2s;
+        }
+
+        .floating-element.coins {
+            top: 70%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        .floating-element.handshake {
+            top: 35%;
+            left: 5%;
+            animation-delay: 4s;
+        }
+
+        .floating-element.shield {
+            top: 45%;
+            right: 5%;
+            animation-delay: 5s;
+        }
+
+        .floating-element.percentage {
+            top: 15%;
+            left: 50%;
+            animation-delay: 1.5s;
+            font-weight: bold;
+            font-size: 3rem;
+        }
+
+        .floating-element.bank {
+            bottom: 15%;
+            left: 25%;
+            animation-delay: 2.5s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.6;
+            }
+            25% {
+                transform: translateY(-20px) rotate(5deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-10px) rotate(-3deg);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-15px) rotate(2deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            background: var(--gradient-primary);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button-large {
+            background: white;
+            color: var(--primary-blue);
+            padding: 1.5rem 3rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .cta-button-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-blue);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-green);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+                text-align: center;
+            }
+
+            .tech-grid {
+                transform: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .partners-header h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .partners-header h2 {
+                font-size: 2rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: var(--shadow-glow);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(0, 102, 204, 0.5);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-icon {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">SouFacil</div>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#servicos">Soluções</a></li>
+                <li><a href="#parceiros">Parceiros</a></li>
+                <li><a href="#conheca-nos">Conheça-nos</a></li>
+                <li><a href="#aplicativo">Aplicativo</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <a href="#entrar" class="cta-button">Acessar Plataforma</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-container">
+            <div class="hero-content fade-in-up">
+                <h1>Revolucione seu <span class="highlight">Crediário Digital</span></h1>
+                <p>Plataforma inteligente de crédito com análise instantânea, garantia de recebimento e tecnologia de ponta para impulsionar suas vendas sem riscos.</p>
+                <div class="hero-buttons">
+                    <a href="#servicos" class="btn-primary">Explorar Soluções</a>
+                    <a href="#contato" class="btn-secondary" id="main-cta-button"></a>
+                </div>
+            </div>
+            <div class="hero-visual slide-in-left">
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <h3>Análise Instantânea</h3>
+                        <p>Score em tempo real</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V11.5C15.4,11.5 16,12.4 16,13V16C16,17.4 15.4,18 14.8,18H9.2C8.6,18 8,17.4 8,16V13C8,12.4 8.6,11.5 9.2,11.5V10C9.2,8.6 10.6,7 12,7M12,8.2C11.2,8.2 10.5,8.7 10.5,10V11.5H13.5V10C13.5,8.7 12.8,8.2 12,8.2Z"/>
+                            </svg>
+                        </div>
+                        <h3>Garantia Total</h3>
+                        <p>100% de segurança</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <path d="M22,21H2V3H4V19H6V10H10V19H12V6H16V19H18V14H22V21Z"/>
+                            </svg>
+                        </div>
+                        <h3>Analytics Avançado</h3>
+                        <p>Insights inteligentes</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-card-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <path d="M12,2A2,2 0 0,1 14,4C14,4.74 13.6,5.39 13,5.73V7H14A7,7 0 0,1 21,14H22A1,1 0 0,1 23,15V18A1,1 0 0,1 22,19H21V20A2,2 0 0,1 19,22H5A2,2 0 0,1 3,20V19H2A1,1 0 0,1 1,18V15A1,1 0 0,1 2,14H3A7,7 0 0,1 10,7H11V5.73C10.4,5.39 10,4.74 10,4A2,2 0 0,1 12,2M7.5,13A2.5,2.5 0 0,0 5,15.5A2.5,2.5 0 0,0 7.5,18A2.5,2.5 0 0,0 10,15.5A2.5,2.5 0 0,0 7.5,13M16.5,13A2.5,2.5 0 0,0 14,15.5A2.5,2.5 0 0,0 16.5,18A2.5,2.5 0 0,0 19,15.5A2.5,2.5 0 0,0 16.5,13Z"/>
+                            </svg>
+                        </div>
+                        <h3>Automação Total</h3>
+                        <p>Processos otimizados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="servicos">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <div class="badge">Tecnologia Avançada</div>
+                <h2>Nossos Diferenciais</h2>
+                <p>Três pilares que nos tornam únicos no mercado financeiro brasileiro</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                            <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3>Praticidade sem Burocracia</h3>
+                    <p>Sistema extremamente prático onde o vendedor informa apenas o CPF do cliente. Em segundos, retornamos a aprovação. Não exigimos comprovante de renda ou residência, e não há risco de reprovação após aprovação do CPF.</p>
+                    <div class="feature-stats">
+                        <div class="stat">
+                            <span class="stat-number">3s</span>
+                            <span class="stat-label">Tempo de Análise</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">0</span>
+                            <span class="stat-label">Documentos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                        </svg>
+                    </div>
+                    <h3>Limites Padronizados</h3>
+                    <p>Nosso consultor elabora uma proposta exclusiva com limites padronizados que atendem ao ticket médio da sua loja. Garantimos que a aprovação tenha valor suficiente para a compra ocorrer.</p>
+                    <div class="feature-stats">
+                        <div class="stat">
+                            <span class="stat-number">R$ 2.5k</span>
+                            <span class="stat-label">Limite Médio</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Personalizado</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card scroll-animate">
+                    <div class="feature-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                            <path d="M23,12L20.56,9.22L20.9,5.54L17.29,4.72L15.4,1.54L12,3L8.6,1.54L6.71,4.72L3.1,5.53L3.44,9.21L1,12L3.44,14.78L3.1,18.47L6.71,19.29L8.6,22.47L12,21L15.4,22.46L17.29,19.28L20.9,18.46L20.56,14.78L23,12M10,17L6,13L7.41,11.59L10,14.17L16.59,7.58L18,9L10,17Z"/>
+                        </svg>
+                    </div>
+                    <h3>Melhor Aprovação do Brasil</h3>
+                    <p>Somos a empresa com a melhor taxa de aprovação do Brasil, focando em perfis de crédito que nenhuma outra financeira atende, inclusive clientes de perfil C. Nosso motor de crédito analisa o histórico completo, não apenas score.</p>
+                    <div class="feature-stats">
+                        <div class="stat">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label">Taxa Aprovação</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">Garantia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="partners" id="parceiros">
+        <div class="container">
+            <div class="partners-header scroll-animate">
+                <div class="badge">Ecossistema de Parceiros</div>
+                <h2>Nossos Parceiros de Sucesso</h2>
+                <p>Empresas que confiam na SouFacil para impulsionar seus negócios e garantir segurança nas vendas.</p>
+            </div>
+            <div class="partners-showcase">
+                <div class="partners-grid">
+                    <div class="partner-card scroll-animate">
+                        <img src="" alt="Logo Parceiro 1" class="partner-logo" id="partner-logo-1">
+                    </div>
+                    <div class="partner-card scroll-animate">
+                        <img src="" alt="Logo Parceiro 2" class="partner-logo" id="partner-logo-2">
+                    </div>
+                    <div class="partner-card scroll-animate">
+                        <img src="" alt="Logo Parceiro 3" class="partner-logo" id="partner-logo-3">
+                    </div>
+                    <div class="partner-card scroll-animate">
+                        <img src="" alt="Logo Parceiro 4" class="partner-logo" id="partner-logo-4">
+                    </div>
+                    <div class="partner-card scroll-animate">
+                        <img src="" alt="Logo Parceiro 5" class="partner-logo" id="partner-logo-5">
+                    </div>
+                    <div class="partner-card scroll-animate">
+                        <img src="" alt="Logo Parceiro 6" class="partner-logo" id="partner-logo-6">
+                    </div>
+                </div>
+                <div class="partners-stats">
+                    <div class="partner-stat scroll-animate">
+                        <h3>500+</h3>
+                        <p>Empresas Parceiras</p>
+                    </div>
+                    <div class="partner-stat scroll-animate">
+                        <h3>10M+</h3>
+                        <p>Transações Processadas</p>
+                    </div>
+                    <div class="partner-stat scroll-animate">
+                        <h3>99%</h3>
+                        <p>Satisfação do Cliente</p>
+                    </div>
+                    <div class="partner-stat scroll-animate">
+                        <h3>100%</h3>
+                        <p>Taxa de Aprovação</p>
+                    </div>
+                    <div class="partner-stat scroll-animate">
+                        <h3>24/7</h3>
+                        <p>Suporte Disponível</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conheça-nos Section -->
+    <section class="about-us" id="conheca-nos">
+        <div class="container">
+            <div class="section-header scroll-animate">
+                <div class="badge">Nossa História</div>
+                <h2>Conheça a SouFacil</h2>
+                <p>Veja como estamos revolucionando o mercado de crediário digital no Brasil.</p>
+            </div>
+            <div class="video-section-wrapper">
+                <!-- Elementos flutuantes financeiros -->
+                <div class="floating-element dollar-sign">$</div>
+                <div class="floating-element credit-card">💳</div>
+                <div class="floating-element chart-up">📈</div>
+                <div class="floating-element coins">🪙</div>
+                <div class="floating-element handshake">🤝</div>
+                <div class="floating-element shield">🛡️</div>
+                <div class="floating-element percentage">%</div>
+                <div class="floating-element bank">🏦</div>
+                
+                <div class="video-container scroll-animate">
+                    <video controls autoplay muted loop id="conheca-nos-video">
+                        Seu navegador não suporta a tag de vídeo.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contato">
+        <div class="container">
+            <div class="cta-content scroll-animate">
+                <h2>Transforme suas Vendas Hoje</h2>
+                <p>Junte-se a mais de 500 empresas que já revolucionaram seu crediário com nossa plataforma inteligente</p>
+                <a href="#" class="cta-button-large" id="large-cta-button"></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>SouFacil</h3>
+                    <p>Plataforma líder em crediário digital com tecnologia de ponta para empresas que buscam crescimento seguro e sustentável.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Soluções</h3>
+                    <a href="#">Crediário Digital</a>
+                    <a href="#">Análise de Crédito</a>
+                    <a href="#">Cobrança Inteligente</a>
+                    <a href="#">Business Intelligence</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Suporte</h3>
+                    <a href="#">Central de Ajuda</a>
+                    <a href="#">2ª via de Fatura</a>
+                    <a href="#">Contato Técnico</a>
+                    <a href="#">Status da Plataforma</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Empresa</h3>
+                    <a href="#">Sobre Nós</a>
+                    <a href="#">Carreiras</a>
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Serviço</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 SouFacil. Todos os direitos reservados. Tecnologia que transforma negócios.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations with Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Enhanced header on scroll
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 1px 2px rgba(0, 0, 0, 0.05)';
+            }
+            
+            // Hide/show header on scroll
+            if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.hero-visual');
+            parallaxElements.forEach(element => {
+                const speed = 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Dynamic counter animation for stats
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('.partner-stat h3, .stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace(/\D/g, ''));
+                if (target > 0) {
+                    const suffix = counter.textContent.replace(/\d/g, '');
+                    let current = 0;
+                    const increment = target / 100;
+                    
+                    const updateCounter = () => {
+                        if (current < target) {
+                            current += increment;
+                            counter.textContent = Math.ceil(current) + suffix;
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target + suffix;
+                        }
+                    };
+                    
+                    updateCounter();
+                }
+            });
+        };
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.partners-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Set dynamic content from CSS variables
+        document.addEventListener('DOMContentLoaded', () => {
+            const rootStyles = getComputedStyle(document.documentElement);
+            document.getElementById('main-cta-button').textContent = rootStyles.getPropertyValue('--cta-text-main').replace(/"/g, '');
+            document.getElementById('large-cta-button').textContent = rootStyles.getPropertyValue('--cta-text-large').replace(/"/g, '');
+            document.getElementById("partner-logo-1").src = rootStyles.getPropertyValue("--partner-image-1").replace(/"/g, "");
+            document.getElementById("partner-logo-2").src = rootStyles.getPropertyValue("--partner-image-2").replace(/"/g, "");
+            document.getElementById("partner-logo-3").src = rootStyles.getPropertyValue("--partner-image-3").replace(/"/g, "");
+            document.getElementById("partner-logo-4").src = rootStyles.getPropertyValue("--partner-image-4").replace(/"/g, "");
+            document.getElementById("partner-logo-5").src = rootStyles.getPropertyValue("--partner-image-5").replace(/"/g, "");
+            document.getElementById("partner-logo-6").src = rootStyles.getPropertyValue("--partner-image-6").replace(/"/g, "");
+            document.getElementById("conheca-nos-video").src = rootStyles.getPropertyValue("--video-conheca-nos").replace(/"/g, "");
+        });
+
+        // Video autoplay on scroll
+        const video = document.getElementById("conheca-nos-video");
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            });
+        }, { threshold: 0.5 }); // Play when 50% of video is visible
+
+        if (video) {
+            videoObserver.observe(video);
+        }
+
+        // Mobile menu toggle (if needed)
+        const createMobileMenu = () => {
+            if (window.innerWidth <= 768) {
+                // Add mobile menu functionality here if needed
+            }
+        };
+
+        window.addEventListener('resize', createMobileMenu);
+        createMobileMenu();
+    </script>
+</body>
+</html>
+

@@ -15,7 +15,6 @@
             --partner-image-4: "parceiro4.png";
             --partner-image-5: "parceiro5.png";
             --partner-image-6: "parceiro6.png";
-            --video-conheca-nos: "videosoufacil.mp4";
         }
         /* VARIÁVEIS DE CONFIGURAÇÃO - FIM */
 
@@ -365,13 +364,51 @@
             gap: 3rem;
         }
 
-        .feature-card {
-            background: white;
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 102, 204, 0.9);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .video-overlay:hover {
+            background: rgba(0, 102, 204, 1);
+            transform: scale(1.05);
+        }
+
+              .feature-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
             padding: 3.5rem;
             border-radius: 24px;
-            box-shadow: var(--shadow-md);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(0, 102, 204, 0.05);
+            box-shadow: 
+                0 10px 30px rgba(0, 102, 204, 0.1),
+                0 1px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 102, 204, 0.08);
             position: relative;
             overflow: hidden;
         }
@@ -382,8 +419,9 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 5px;
             background: var(--gradient-primary);
+            border-radius: 24px 24px 0 0;
         }
 
         .feature-card::after {
@@ -391,78 +429,129 @@
             position: absolute;
             top: -50%;
             right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0, 102, 204, 0.05) 0%, transparent 70%);
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 102, 204, 0.08) 0%, transparent 50%);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: all 0.5s ease;
+            transform: scale(0.8);
         }
 
         .feature-card:hover {
-            transform: translateY(-12px);
-            box-shadow: var(--shadow-xl);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 
+                0 25px 50px rgba(0, 102, 204, 0.2),
+                0 10px 30px rgba(0, 0, 0, 0.1);
+            border-color: rgba(0, 102, 204, 0.15);
         }
 
         .feature-card:hover::after {
             opacity: 1;
+            transform: scale(1);
         }
 
         .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-primary);
-            border-radius: 20px;
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #0066cc 0%, #00b894 50%, #0066cc 100%);
+            border-radius: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             position: relative;
-            box-shadow: var(--shadow-glow);
+            box-shadow: 
+                0 8px 25px rgba(0, 102, 204, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 
+                0 12px 35px rgba(0, 102, 204, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
 
         .feature-icon svg {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             fill: white;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
 
         .feature-card h3 {
-            font-size: 1.75rem;
-            font-weight: 700;
+            font-size: 1.9rem;
+            font-weight: 800;
             color: var(--dark-blue);
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.01em;
+            margin-bottom: 1.8rem;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            transition: color 0.3s ease;
+        }
+
+        .feature-card:hover h3 {
+            color: var(--primary-blue);
         }
 
         .feature-card p {
             color: var(--medium-gray);
             line-height: 1.8;
             font-size: 1.1rem;
-        }
+            font-weight: 400;
+            margin-bottom: 2rem;
+        } }
 
         .feature-stats {
             display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(0, 102, 204, 0.1);
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+            padding-top: 2.5rem;
+            border-top: 2px solid rgba(0, 102, 204, 0.1);
+            position: relative;
+        }
+
+        .feature-stats::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
         }
 
         .stat {
             text-align: center;
+            flex: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .stat {
+            transform: translateY(-3px);
         }
 
         .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary-green);
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 102, 204, 0.1);
         }
 
         .stat-label {
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             color: var(--medium-gray);
-            margin-top: 0.25rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* Partners Section */
@@ -636,11 +725,49 @@
             z-index: 10;
         }
 
-        .video-container video {
+        .video-container iframe {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Garante que o vídeo preencha o container */
-            display: block;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .video-sound-notice {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem 2rem;
+            background: rgba(0, 102, 204, 0.1);
+            border: 2px solid rgba(0, 102, 204, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            animation: pulse 2s infinite;
+        }
+
+        .video-sound-notice h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .video-sound-notice p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--medium-gray);
+            font-weight: 500;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.02);
+                opacity: 0.9;
+            }
         }
 
         .floating-element {
@@ -1145,7 +1272,7 @@
                 <h2>Conheça a SouFacil</h2>
                 <p>Veja como estamos revolucionando o mercado de crediário digital no Brasil.</p>
             </div>
-            <div class="video-section-wrapper">
+                <div class="video-section-wrapper">
                 <!-- Elementos flutuantes financeiros -->
                 <div class="floating-element dollar-sign">$</div>
                 <div class="floating-element credit-card">💳</div>
@@ -1156,10 +1283,18 @@
                 <div class="floating-element percentage">%</div>
                 <div class="floating-element bank">🏦</div>
                 
+                <div class="video-sound-notice">
+                    <h3>🔊 Ative o Som</h3>
+                    <p>Clique para ouvir nossa apresentação</p>
+                </div>
+                
                 <div class="video-container scroll-animate">
-                    <video controls autoplay muted loop id="conheca-nos-video">
-                        Seu navegador não suporta a tag de vídeo.
-                    </video>
+                    <iframe id="conheca-nos-video" 
+                            src="https://www.youtube.com/embed/m_EfNZLDSWI?autoplay=1&mute=0&loop=1&playlist=m_EfNZLDSWI&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&fs=0&disablekb=1" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -1330,24 +1465,7 @@
             document.getElementById("partner-logo-4").src = rootStyles.getPropertyValue("--partner-image-4").replace(/"/g, "");
             document.getElementById("partner-logo-5").src = rootStyles.getPropertyValue("--partner-image-5").replace(/"/g, "");
             document.getElementById("partner-logo-6").src = rootStyles.getPropertyValue("--partner-image-6").replace(/"/g, "");
-            document.getElementById("conheca-nos-video").src = rootStyles.getPropertyValue("--video-conheca-nos").replace(/"/g, "");
         });
-
-        // Video autoplay on scroll
-        const video = document.getElementById("conheca-nos-video");
-        const videoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    video.play();
-                } else {
-                    video.pause();
-                }
-            });
-        }, { threshold: 0.5 }); // Play when 50% of video is visible
-
-        if (video) {
-            videoObserver.observe(video);
-        }
 
         // Mobile menu toggle (if needed)
         const createMobileMenu = () => {

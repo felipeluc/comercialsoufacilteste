@@ -3,162 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SouFacil Card - Clube de Benefícios</title>
+    <title>Simulador SouFacil - Comparação de Vendas</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>SouFacil Card</h1>
-            <nav>
-                <button id="btn-antes" class="active">Cenário Anterior</button>
-                <button id="btn-depois">Nova Proposta</button>
-                <button id="btn-simulacao">Simulação</button>
-                <button id="btn-detalhes">Detalhes Completos</button>
-            </nav>
+    <div class="container">
+        <header>
+            <h1>Simulador SouFacil</h1>
+            <p>Compare suas vendas com e sem o clube de benefícios</p>
+        </header>
+
+        <div class="controls">
+            <div class="input-group">
+                <label for="valorVenda">Valor da Venda (R$)</label>
+                <input type="number" id="valorVenda" value="300" min="1" step="0.01">
+            </div>
+            
+            <div class="input-group">
+                <label for="quantidadeVendas">Quantidade de Vendas</label>
+                <input type="number" id="quantidadeVendas" value="10" min="1">
+            </div>
+            
+            <div class="input-group">
+                <label for="mesesVenda">Meses de Vendas</label>
+                <select id="mesesVenda">
+                    <option value="1">1 mês</option>
+                    <option value="2">2 meses</option>
+                    <option value="3">3 meses</option>
+                    <option value="6">6 meses</option>
+                    <option value="12">12 meses</option>
+                </select>
+            </div>
+            
+            <button id="calcular" class="btn-calcular">Calcular</button>
         </div>
-    </header>
 
-    <main>
-        <section id="cenario-antes" class="content-section">
-            <h2>Cenário Anterior</h2>
-            <div class="scenario-grid">
-                <div class="scenario-card">
-                    <h3><i class="fas fa-user"></i> Cliente</h3>
-                    <p>Ao parcelar em 4x, o cliente paga uma taxa de 6.5% do valor da compra e R$14,90 de taxa de utilização por parcela.</p>
-                    <p><strong>Exemplo:</strong> Compra de R$300 em 4x</p>
-                    <ul>
-                        <li>Taxa de 6.5%: R$19,50</li>
-                        <li>Taxa de utilização: 4 × R$14,90 = R$59,60</li>
-                        <li><strong>Total pago:</strong> R$379,10</li>
-                    </ul>
-                </div>
-                
-                <div class="scenario-card">
-                    <h3><i class="fas fa-store"></i> Lojista</h3>
-                    <p>Recebe o valor de forma garantida independente do pagamento do cliente. Custo fixo de R$150 mensal.</p>
-                    <p><strong>Exemplo:</strong> 10 vendas de R$300 em 4 meses</p>
-                    <ul>
-                        <li>Recebimento: R$3.000/mês → R$12.000 total</li>
-                        <li>Custo mensal: R$150 → R$600 total</li>
-                        <li><strong>Lucro líquido:</strong> R$11.400</li>
-                    </ul>
-                </div>
-                
-                <div class="scenario-card">
-                    <h3><i class="fas fa-building"></i> SouFacil</h3>
-                    <p>Recebe 6.5% dos juros de cada compra e as taxas de utilização, dependendo do pagamento do cliente final.</p>
-                    <ul>
-                        <li>Receita variável: Juros + taxas de utilização</li>
-                        <li>Risco: Inadimplência do cliente final</li>
-                        <li><strong>Única renda garantida:</strong> Mensalidade do lojista</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="nova-proposta" class="content-section hidden">
-            <h2>Nova Proposta: Clube de Benefícios</h2>
-            <div class="scenario-grid">
-                <div class="scenario-card">
-                    <h3><i class="fas fa-user-plus"></i> Cliente</h3>
-                    <p>Paga apenas R$10,00 por parcela e ganha acesso a sorteios mensais e cashback em compras acima de R$30.</p>
-                    <p><strong>Exemplo:</strong> Compra de R$300 em 4x</p>
-                    <ul>
-                        <li>Taxa de 6.5%: R$19,50 (mantida)</li>
-                        <li>Taxa de utilização: 4 × R$10,00 = R$40,00</li>
-                        <li><strong>Total pago:</strong> R$359,50</li>
-                        <li><strong>Benefícios:</strong> Sorteios + cashback</li>
-                    </ul>
-                </div>
-                
-                <div class="scenario-card">
-                    <h3><i class="fas fa-store-alt"></i> Lojista</h3>
-                    <p>Oferece o Clube de Benefícios como diferencial competitivo. Custo adicional de R$4,99 por parcela.</p>
-                    <p><strong>Exemplo:</strong> 10 vendas de R$300 em 4 meses</p>
-                    <ul>
-                        <li>Recebimento: R$12.000 (mantido)</li>
-                        <li>Custo mensal: R$150 (mantido)</li>
-                        <li>Custo do clube: 10×4×R$4,99 = R$199,60/mês</li>
-                        <li><strong>Lucro líquido:</strong> R$10.601,60</li>
-                    </ul>
-                </div>
-                
-                <div class="scenario-card">
-                    <h3><i class="fas fa-chart-line"></i> SouFacil</h3>
-                    <p>Mantém a receita anterior e ganha uma nova fonte de renda garantida de R$4,99 por parcela do lojista.</p>
-                    <ul>
-                        <li>Receita mantida: Juros + taxas de utilização</li>
-                        <li><strong>Nova receita garantida:</strong> R$4,99 por parcela</li>
-                        <li>Sem risco de inadimplência na nova receita</li>
-                        <li><strong>Modelo mais sustentável</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="simulacao" class="content-section hidden">
-            <h2>Simulação Interativa</h2>
-            <div class="simulation-container">
-                <div class="simulation-controls">
-                    <div class="input-group">
-                        <label for="valor-compra">Valor da Compra (R$)</label>
-                        <input type="number" id="valor-compra" value="300" min="1">
-                    </div>
-                    <div class="input-group">
-                        <label for="num-parcelas">Número de Parcelas</label>
-                        <input type="number" id="num-parcelas" value="4" min="1">
-                    </div>
-                    <div class="input-group">
-                        <label for="num-vendas">Vendas por Mês</label>
-                        <input type="number" id="num-vendas" value="10" min="1">
-                    </div>
-                    <button id="btn-simular" class="simulate-button">
-                        <i class="fas fa-calculator"></i> Calcular Simulação
-                    </button>
-                </div>
-                
-                <div class="simulation-results">
-                    <h3>Resultados da Simulação</h3>
-                    <div class="results-grid">
-                        <div class="result-block">
-                            <h4>Cenário Anterior</h4>
-                            <p><strong><i class="fas fa-user"></i> Cliente:</strong> <span id="cliente-antes">-</span></p>
-                            <p><strong><i class="fas fa-store"></i> Lojista:</strong> <span id="lojista-antes">-</span></p>
-                            <p><strong><i class="fas fa-building"></i> SouFacil:</strong> <span id="soufacil-antes">-</span></p>
+        <div class="results">
+            <div class="comparison">
+                <div class="scenario com-beneficio">
+                    <h2>COM Clube de Benefícios</h2>
+                    <div class="card">
+                        <h3>Lojista</h3>
+                        <div class="valores">
+                            <div class="item">
+                                <span class="label">Venda Bruta:</span>
+                                <span class="valor" id="vendaBrutaCom">R$ 0,00</span>
+                            </div>
+                            <div class="item">
+                                <span class="label">Venda Líquida:</span>
+                                <span class="valor" id="vendaLiquidaCom">R$ 0,00</span>
+                            </div>
+                            <div class="item">
+                                <span class="label">Mensalidade:</span>
+                                <span class="valor negativo" id="mensalidadeCom">-R$ 0,00</span>
+                            </div>
+                            <div class="item">
+                                <span class="label">Clube Benefício:</span>
+                                <span class="valor negativo" id="clubeBeneficioCom">-R$ 0,00</span>
+                            </div>
+                            <div class="item total">
+                                <span class="label">A Receber:</span>
+                                <span class="valor" id="totalReceberCom">R$ 0,00</span>
+                            </div>
                         </div>
-                        <div class="result-block">
-                            <h4>Nova Proposta</h4>
-                            <p><strong><i class="fas fa-user-plus"></i> Cliente:</strong> <span id="cliente-depois">-</span></p>
-                            <p><strong><i class="fas fa-store-alt"></i> Lojista:</strong> <span id="lojista-depois">-</span></p>
-                            <p><strong><i class="fas fa-chart-line"></i> SouFacil:</strong> <span id="soufacil-depois">-</span></p>
+                        
+                        <div class="renda-garantida">
+                            <h4>Renda Garantida</h4>
+                            <div class="item">
+                                <span class="label">Clube Benefício:</span>
+                                <span class="valor garantida" id="rendaGarantidaClube">R$ 0,00</span>
+                            </div>
+                            <div class="item">
+                                <span class="label">Mensalidade:</span>
+                                <span class="valor garantida" id="rendaGarantidaMensalidade">R$ 0,00</span>
+                            </div>
+                            <div class="item total">
+                                <span class="label">Total Garantido:</span>
+                                <span class="valor garantida" id="totalGarantido">R$ 0,00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="renda-variavel">
+                            <h4>Renda Variável</h4>
+                            <div class="item">
+                                <span class="label">Taxa Parcelamento:</span>
+                                <span class="valor variavel" id="rendaVariavelTaxa">R$ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario sem-beneficio">
+                    <h2>SEM Clube de Benefícios</h2>
+                    <div class="card">
+                        <h3>Lojista</h3>
+                        <div class="valores">
+                            <div class="item">
+                                <span class="label">Venda Bruta:</span>
+                                <span class="valor" id="vendaBrutaSem">R$ 0,00</span>
+                            </div>
+                            <div class="item">
+                                <span class="label">Venda Líquida:</span>
+                                <span class="valor" id="vendaLiquidaSem">R$ 0,00</span>
+                            </div>
+                            <div class="item">
+                                <span class="label">Mensalidade:</span>
+                                <span class="valor negativo" id="mensalidadeSem">-R$ 0,00</span>
+                            </div>
+                            <div class="item total">
+                                <span class="label">A Receber:</span>
+                                <span class="valor" id="totalReceberSem">R$ 0,00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="renda-variavel">
+                            <h4>Renda Variável</h4>
+                            <div class="item">
+                                <span class="label">Taxa Parcelamento:</span>
+                                <span class="valor variavel" id="rendaVariavelTaxaSem">R$ 0,00</span>
+                            </div>
+                            <div class="item">
+                                <span class="label">Taxa Utilização:</span>
+                                <span class="valor variavel" id="rendaVariavelUtilizacao">R$ 0,00</span>
+                            </div>
+                            <div class="item total">
+                                <span class="label">Total Variável:</span>
+                                <span class="valor variavel" id="totalVariavelSem">R$ 0,00</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="detalhes-completos" class="content-section hidden">
-            <h2>Análise Detalhada</h2>
-            <div class="details-content">
-                <h3><i class="fas fa-user"></i> Perspectiva do Cliente</h3>
-                <p><strong>Cenário Anterior:</strong> O cliente arca com 6.5% de juros sobre o valor da compra parcelada e uma taxa fixa de R$14,90 por parcela pela utilização do cartão. Essa estrutura de custos, especialmente a taxa de utilização, tem sido um ponto de atrito, gerando reclamações e a percepção de que o cartão não oferece valor agregado suficiente para justificar os custos.</p>
-                
-                <p><strong>Nova Proposta:</strong> Com a implementação do Clube de Benefícios, a taxa de utilização para o cliente é reduzida para R$10,00 por parcela. Além da redução no custo direto, o cliente passa a ter acesso a benefícios tangíveis como sorteios mensais de vale-compras e cashback em compras acima de R$30. Essa mudança visa não apenas diminuir o custo percebido, mas também agregar valor ao cartão, transformando a taxa de utilização em um investimento que retorna em benefícios e oportunidades de economia.</p>
-
-                <h3><i class="fas fa-store"></i> Perspectiva do Lojista</h3>
-                <p><strong>Cenário Anterior:</strong> O lojista tem a garantia de recebimento do valor total das vendas, independentemente do pagamento do cliente final, o que representa uma segurança financeira. O único custo fixo é uma mensalidade de R$150. No entanto, a insatisfação dos clientes com as taxas do cartão impacta diretamente as vendas, pois muitos clientes evitam usar o SouFacil Card devido aos custos adicionais, resultando em vendas perdidas ou na necessidade de oferecer outras formas de pagamento menos vantajosas para o lojista.</p>
-                
-                <p><strong>Nova Proposta:</strong> O lojista continua com a garantia de recebimento e a mensalidade de R$150. O custo adicional para o lojista é de R$4,99 por parcela, que é o valor para oferecer o Clube de Benefícios aos seus clientes. Este custo é justificado pela capacidade de oferecer um diferencial competitivo: um cartão de loja que gera valor para o cliente através de sorteios e cashback. Isso não só incentiva o uso do SouFacil Card, aumentando as vendas e a fidelização, mas também fortalece a relação do lojista com seus clientes, posicionando o cartão como uma ferramenta de benefícios e não apenas de crédito.</p>
-
-                <h3><i class="fas fa-building"></i> Perspectiva da SouFacil</h3>
-                <p><strong>Cenário Anterior:</strong> A receita da SouFacil provém principalmente dos 6.5% de juros sobre as compras parceladas e das taxas de utilização. Contudo, essa receita é vulnerável à inadimplência dos clientes finais, o que gera incerteza e perdas. A única fonte de renda garantida é a mensalidade paga pelos lojistas, o que limita a previsibilidade e o crescimento da empresa.</p>
-                
-                <p><strong>Nova Proposta:</strong> A SouFacil mantém as receitas dos 6.5% de juros e das taxas de utilização (agora de R$10,00 para o cliente). A grande inovação é a introdução de uma nova fonte de receita garantida: os R$4,99 por parcela pagos pelo lojista. Essa nova taxa é diretamente descontada do lojista, eliminando o risco de inadimplência associado ao cliente final. Isso não só estabiliza e aumenta a receita da SouFacil, mas também alinha os interesses de todas as partes: o cliente paga menos e recebe benefícios, o lojista tem um diferencial para suas vendas, e a SouFacil garante sua rentabilidade e sustentabilidade, com um modelo de negócio mais robusto e menos dependente do comportamento de pagamento do cliente final.</p>
+            <div class="resumo">
+                <h2>Resumo da Comparação</h2>
+                <div class="resumo-card">
+                    <div class="item">
+                        <span class="label">Diferença no Total a Receber:</span>
+                        <span class="valor" id="diferencaTotal">R$ 0,00</span>
+                    </div>
+                    <div class="item">
+                        <span class="label">Renda Garantida (Com Benefício):</span>
+                        <span class="valor garantida" id="resumoGarantida">R$ 0,00</span>
+                    </div>
+                    <div class="item">
+                        <span class="label">Vendas Extras Geradas:</span>
+                        <span class="valor" id="vendasExtras">0</span>
+                    </div>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

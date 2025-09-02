@@ -1,195 +1,222 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulador Financeira</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simulador de Recebimentos — SouFacil</title>
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: #f9fbff;
-      color: #1a1a1a;
-      margin: 0;
-      padding: 20px;
+    /* Estética "Apple-like" simples: azul, branco, cantos arredondados, sombras suaves */
+    :root{
+      --bg:#f6fbff;
+      --card:#ffffff;
+      --primary:#0a66ff;
+      --muted:#6b7a90;
+      --glass: rgba(255,255,255,0.6);
+      --shadow: 0 10px 30px rgba(10,20,50,0.08);
+      --radius:18px;
+      --accent: linear-gradient(135deg,#0a66ff, #2aa3ff);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
     }
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      background: #fff;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #007aff;
-      margin-bottom: 20px;
-    }
-    .form-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-bottom: 30px;
-    }
-    label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 6px;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-      font-size: 15px;
-    }
-    button {
-      background: #007aff;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #005bb5;
-    }
-    .buttons {
-      display: flex;
-      justify-content: center;
-      margin: 40px 0; /* aumentei o espaçamento */
-      gap: 30px;      /* aumentei o espaçamento */
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 30px;
-    }
-    th, td {
-      border: 1px solid #e0e0e0;
-      padding: 12px;
-      text-align: center;
-    }
-    th {
-      background: #007aff;
-      color: white;
-    }
-    tr:nth-child(even) {
-      background: #f2f6ff;
-    }
+    html,body{height:100%;margin:0;background:var(--bg);color:#123;}
+    .wrap{max-width:1000px;margin:32px auto;padding:28px;}
+    header{display:flex;align-items:center;gap:18px;margin-bottom:20px}
+    .logo{width:72px;height:72px;background:var(--accent);border-radius:16px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+    .grid{display:grid;grid-template-columns:360px 1fr;gap:20px}
+    .card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);}
+    .control{display:flex;flex-direction:column;gap:10px}
+    label{font-size:12px;color:var(--muted)}
+    input[type="number"], select{width:100%;padding:10px;border-radius:10px;border:1px solid #e6eefc;background:linear-gradient(180deg,#fff,#fbfeff);font-size:14px}
+    .row{display:flex;gap:10px}
+    .row > *{flex:1}
+    .small{font-size:12px;color:var(--muted)}
+    .btn{background:var(--primary);color:white;padding:10px 14px;border-radius:12px;border:none;cursor:pointer;font-weight:600;box-shadow:0 6px 18px rgba(10,100,255,0.18)}
+    .btn.secondary{background:transparent;color:var(--primary);border:1px solid rgba(10,102,255,0.12)}
+    .preview{display:flex;flex-direction:column;gap:12px}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    th,td{padding:10px;text-align:left;border-bottom:1px solid #f1f7ff}
+    th{font-weight:700;color:var(--muted);font-size:12px}
+    .kpi{display:flex;gap:12px;align-items:center}
+    .kpi .item{background:linear-gradient(180deg,#fff,#fbfeff);padding:12px;border-radius:12px;box-shadow:0 6px 15px rgba(10,20,50,0.04);min-width:140px}
+    .muted{color:var(--muted);font-size:12px}
+    @media (max-width:880px){.grid{grid-template-columns:1fr;}.logo{width:56px;height:56px}}
+    .footer{margin-top:14px;color:var(--muted);font-size:12px}
+    .chip{display:inline-block;background:var(--glass);padding:6px 10px;border-radius:999px;border:1px solid rgba(10,100,255,0.06);font-size:12px}
+    .table-wrap{overflow:auto;border-radius:12px}
+    .highlight{color:var(--primary);font-weight:700}
+    canvas{width:100%;height:140px;border-radius:12px;background:linear-gradient(180deg,#ffffff00,#ffffff00)}
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Simulador de Recebíveis</h1>
-    <div class="form-section">
+  <div class="wrap">
+    <header>
+      <div class="logo">SF</div>
       <div>
-        <label>Vendas por mês</label>
-        <input type="number" id="vendasMes" value="10">
+        <h1>Simulador de Recebimentos — SouFacil</h1>
+        <p class="lead">Mostre ao lojista como funcionam os recebimentos e os descontos. Ajuste os parâmetros e copie o resultado.</p>
       </div>
-      <div>
-        <label>Valor de cada venda (R$)</label>
-        <input type="number" id="valorVenda" value="300">
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div>
+            <div class="muted">Configurações</div>
+            <strong>Parâmetros da simulação</strong>
+          </div>
+          <div class="chip">Tema Azul • Clean</div>
+        </div>
+
+        <div class="control">
+          <div>
+            <label>Vendas por mês (quantidade de vendas de R$):</label>
+            <input id="salesCount" type="number" min="1" value="10" />
+          </div>
+
+          <div class="row">
+            <div>
+              <label>Valor por venda (R$)</label>
+              <input id="saleValue" type="number" min="1" step="0.01" value="300" />
+            </div>
+            <div>
+              <label>Parcelas por venda</label>
+              <select id="installments">
+                <option value="2">2x</option>
+                <option value="3">3x</option>
+                <option value="4" selected>4x</option>
+                <option value="6">6x</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>Taxa por parcela (R$)</label>
+              <input id="feePerParcel" type="number" min="0" step="0.01" value="4.90" />
+            </div>
+            <div>
+              <label>Desconto mensal (R$)</label>
+              <input id="monthlyFee" type="number" min="0" step="0.01" value="150" />
+            </div>
+          </div>
+
+          <!-- NOVO: Meses recorrentes -->
+          <div>
+            <label>Meses de vendas recorrentes</label>
+            <input id="recurringMonths" type="number" min="1" value="4" />
+          </div>
+
+          <!-- NOVO: Tipo de desconto -->
+          <div>
+            <label>Tipo de desconto sobre a taxa</label>
+            <select id="discountMode">
+              <option value="total">Descontar do total do mês (ex.: 701)</option>
+              <option value="parcelado">Descontar parcelado (ex.: 49 por parcela)</option>
+            </select>
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:10px">
+            <div style="display:flex;gap:8px;align-items:center">
+              <input id="skipFirstDiscount" type="checkbox" checked />
+              <label class="small">Não cobrar desconto no mês da 1ª venda</label>
+            </div>
+            <div>
+              <button class="btn" id="run">Simular</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <label>Número de parcelas</label>
-        <input type="number" id="parcelas" value="4">
-      </div>
-      <div>
-        <label>Meses de vendas recorrentes</label>
-        <input type="number" id="mesesRecorrentes" value="4">
-      </div>
-      <div>
-        <label>Desconto fixo mensal (R$)</label>
-        <input type="number" id="descontoMensal" value="150">
-      </div>
-      <div>
-        <label>Taxa por parcela (R$)</label>
-        <input type="number" id="taxaParcela" value="4.9">
-      </div>
-      <div>
-        <label>Tipo de desconto</label>
-        <select id="tipoDesconto">
-          <option value="total">Descontar total do mês (ex.: 701)</option>
-          <option value="parcelado">Descontar parcelado (ex.: 49 em cada parcela)</option>
-        </select>
+
+      <div class="preview card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="muted">Resultado</div>
+            <strong>Tabela de Recebimentos</strong>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <button class="btn secondary" id="copyBtn">Copiar tabela</button>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="kpi">
+          <div class="item">
+            <div class="muted">Receita Líquida Total</div>
+            <div id="totalNet" style="font-size:18px;margin-top:6px">R$ 0,00</div>
+          </div>
+          <div class="item">
+            <div class="muted">Receita Bruta Total</div>
+            <div id="totalGross" style="font-size:18px;margin-top:6px">R$ 0,00</div>
+          </div>
+          <div class="item">
+            <div class="muted">Taxas Totais</div>
+            <div id="totalFees" style="font-size:18px;margin-top:6px">R$ 0,00</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="table-wrap card">
+          <table id="table">
+            <thead>
+              <tr><th>Mês</th><th>Grupos recebidos</th><th>Valor por parcela</th><th>Bruto</th><th>Desconto mensal</th><th>Líquido</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="buttons">
-      <button onclick="simular()">Simular</button>
-      <button onclick="limpar()" style="background:#999">Limpar</button>
-    </div>
-    <div id="resultado"></div>
   </div>
 
   <script>
-    function simular() {
-      const vendasMes = parseInt(document.getElementById('vendasMes').value);
-      const valorVenda = parseFloat(document.getElementById('valorVenda').value);
-      const parcelas = parseInt(document.getElementById('parcelas').value);
-      const mesesRecorrentes = parseInt(document.getElementById('mesesRecorrentes').value);
-      const descontoMensal = parseFloat(document.getElementById('descontoMensal').value);
-      const taxaParcela = parseFloat(document.getElementById('taxaParcela').value);
-      const tipoDesconto = document.getElementById('tipoDesconto').value;
+    const months = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    function fmt(n){return n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
 
-      const valorParcela = valorVenda / parcelas;
-      const totalGrupo = vendasMes * valorVenda; // total vendido no mês
-      const parcelaGrupoBruta = valorParcela * vendasMes; // quanto recebe por parcela (sem taxa)
-      const taxaTotalGrupo = taxaParcela * parcelas * vendasMes; // taxa total por grupo de vendas
-      const taxaParcelaGrupo = taxaTotalGrupo / parcelas; // taxa dividida em cada parcela
+    function simulate(){
+      const salesCount = +document.getElementById('salesCount').value;
+      const saleValue = +document.getElementById('saleValue').value;
+      const installments = +document.getElementById('installments').value;
+      const feePerParcel = +document.getElementById('feePerParcel').value;
+      const monthlyFee = +document.getElementById('monthlyFee').value;
+      const recurringMonths = +document.getElementById('recurringMonths').value;
+      const discountMode = document.getElementById('discountMode').value;
+      const skipFirstDiscount = document.getElementById('skipFirstDiscount').checked;
 
-      let meses = [];
-      let ultimoMes = mesesRecorrentes + parcelas; // vai até o último recebimento
+      const parcelPerSale = saleValue/installments;
+      const groupParcelGross = parcelPerSale*salesCount;
+      const feeTotalGroup = feePerParcel*installments*salesCount;
+      const feePerGroupParcel = discountMode==="total" ? feeTotalGroup/installments : (feeTotalGroup/installments);
+      const groupParcelNet = discountMode==="total" ? (saleValue*salesCount-feeTotalGroup)/installments : groupParcelGross-feePerGroupParcel;
 
-      for (let m = 0; m < ultimoMes; m++) {
-        let recebimentoBruto = 0;
-        let descontoTaxa = 0;
+      const rows=[],totals={gross:0,fees:0,net:0};
+      const totalMonths=recurringMonths+installments;
 
-        // simula recebimentos de cada mês de venda
-        for (let v = 0; v < mesesRecorrentes; v++) {
-          if (m >= v+1 && m <= v+parcelas) {
-            if (tipoDesconto === 'total') {
-              // aplica desconto total já diluído na parcela
-              recebimentoBruto += (totalGrupo - taxaTotalGrupo) / parcelas;
-            } else {
-              // aplica desconto parcelado (taxa dividida em cada parcela)
-              recebimentoBruto += parcelaGrupoBruta - taxaParcelaGrupo;
-            }
-          }
+      for(let i=0;i<totalMonths;i++){
+        let groupsThisMonth=0;
+        for(let s=0;s<recurringMonths;s++){
+          if(i>=s+1 && i<=s+installments){groupsThisMonth++;}
         }
-
-        let descontoFixo = m === 0 ? 0 : descontoMensal;
-        let liquido = recebimentoBruto - descontoFixo;
-
-        meses.push({
-          mes: `Mês ${m+1}`,
-          bruto: recebimentoBruto,
-          taxa: tipoDesconto === 'total' ? taxaTotalGrupo/parcelas : taxaParcelaGrupo,
-          fixo: descontoFixo,
-          liquido: liquido
-        });
+        const gross=groupsThisMonth*groupParcelNet;
+        const fees=groupsThisMonth*feePerGroupParcel;
+        const applyDiscount=!(skipFirstDiscount&&i===0)&&i>=1;
+        const discount=applyDiscount?monthlyFee:0;
+        const net=gross-discount;
+        totals.gross+=gross;totals.fees+=fees;totals.net+=net;
+        rows.push({month:"Mês "+(i+1),groups:groupsThisMonth,perParcel:groupParcelNet,gross,discount,net});
       }
 
-      let html = `<table><tr><th>Mês</th><th>Receita Bruta (R$)</th><th>Taxas (R$)</th><th>Desconto Mensal (R$)</th><th>Receita Líquida (R$)</th></tr>`;
-      meses.forEach(l => {
-        html += `<tr>
-          <td>${l.mes}</td>
-          <td>${l.bruto.toFixed(2)}</td>
-          <td>${l.taxa.toFixed(2)}</td>
-          <td>${l.fixo.toFixed(2)}</td>
-          <td><b>${l.liquido.toFixed(2)}</b></td>
-        </tr>`;
-      });
-      html += `</table>`;
-
-      document.getElementById('resultado').innerHTML = html;
+      const tbody=document.querySelector("#table tbody");
+      tbody.innerHTML="";
+      for(const r of rows){
+        const tr=document.createElement("tr");
+        tr.innerHTML=`<td>${r.month}</td><td>${r.groups}</td><td>R$ ${fmt(r.perParcel)}</td><td>R$ ${fmt(r.gross)}</td><td>R$ ${fmt(r.discount)}</td><td><b>R$ ${fmt(r.net)}</b></td>`;
+        tbody.appendChild(tr);
+      }
+      document.getElementById("totalGross").innerText="R$ "+fmt(totals.gross);
+      document.getElementById("totalFees").innerText="R$ "+fmt(totals.fees);
+      document.getElementById("totalNet").innerText="R$ "+fmt(totals.net);
     }
 
-    function limpar() {
-      document.getElementById('resultado').innerHTML = "";
-    }
+    document.getElementById("run").addEventListener("click",simulate);
+    simulate();
   </script>
 </body>
 </html>

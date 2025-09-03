@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador SouFacil - Design Apple</title>
+    <link rel="stylesheet" href="style-v4.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">Simulador SouFacil</h1>
+                <p class="subtitle">Comparação inteligente entre cenários</p>
+            </div>
+        </header>
+
+        <section class="controls-section">
+            <div class="controls-card">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label class="input-label">Valor da Venda</label>
+                        <div class="input-wrapper">
+                            <span class="input-prefix">R$</span>
+                            <input type="number" id="valorVenda" value="300" min="1" step="0.01" class="input-field">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Quantidade de Vendas</label>
+                        <input type="number" id="quantidadeVendas" value="10" min="1" class="input-field">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Período</label>
+                        <select id="mesesVenda" class="select-field">
+                            <option value="1">1 mês</option>
+                            <option value="2">2 meses</option>
+                            <option value="3">3 meses</option>
+                            <option value="6">6 meses</option>
+                            <option value="12">12 meses</option>
+                        </select>
+                    </div>
+                    
+                    <button id="calcular" class="btn-primary">
+                        <span>Calcular</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="charts-section">
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3 class="chart-title">Comparação de Receitas</h3>
+                    <canvas id="receitasChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Renda Garantida vs Variável</h3>
+                    <canvas id="rendaChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="results-section">
+            <div class="scenario-tabs">
+                <button class="tab-button active" data-scenario="com-beneficio">Com Clube de Benefícios</button>
+                <button class="tab-button" data-scenario="sem-beneficio">Sem Clube de Benefícios</button>
+            </div>
+
+            <div class="scenario-content" id="com-beneficio">
+                <div class="cards-grid">
+                    <!-- Lojista -->
+                    <div class="entity-card lojista">
+                        <div class="card-header">
+                            <div class="entity-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 7h-9"/>
+                                    <path d="M14 17H5"/>
+                                    <circle cx="17" cy="17" r="3"/>
+                                    <circle cx="7" cy="7" r="3"/>
+                                </svg>
+                            </div>
+                            <h3 class="entity-title">Lojista</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric-row">
+                                <span class="metric-label">Venda Líquida</span>
+                                <span class="metric-value positive" id="vendaLiquidaLojistaComBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Mensalidade</span>
+                                <span class="metric-value negative" id="mensalidadeLojistaComBeneficio">-R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Clube Benefício</span>
+                                <span class="metric-value negative" id="clubeBeneficioLojistaComBeneficio">-R$ 0,00</span>
+                            </div>
+                            <div class="metric-row total">
+                                <span class="metric-label">Total a Receber</span>
+                                <span class="metric-value highlight" id="totalReceberLojistaComBeneficio">R$ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cliente -->
+                    <div class="entity-card cliente">
+                        <div class="card-header">
+                            <div class="entity-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                            <h3 class="entity-title">Cliente</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric-row">
+                                <span class="metric-label">Valor da Compra</span>
+                                <span class="metric-value" id="valorCompraClienteComBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Taxa Parcelamento</span>
+                                <span class="metric-value" id="taxaParcelamentoClienteComBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Taxa do Cartão</span>
+                                <span class="metric-value" id="taxaCartaoClienteComBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row total">
+                                <span class="metric-label">Total a Pagar</span>
+                                <span class="metric-value highlight" id="totalPagarClienteComBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row parcela">
+                                <span class="metric-label">4x de</span>
+                                <span class="metric-value" id="parcelaClienteComBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="benefits-tag">
+                                <span class="benefit-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"/>
+                                        <path d="M2 7h20l-2 5H4l-2-5Z"/>
+                                        <path d="M12 22V7"/>
+                                        <path d="M8 7V3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v4"/>
+                                    </svg>
+                                    Prêmios
+                                </span>
+                                <span class="benefit-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="12" y1="1" x2="12" y2="23"/>
+                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                    </svg>
+                                    Cashback
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SouFacil -->
+                    <div class="entity-card soufacil">
+                        <div class="card-header">
+                            <div class="entity-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 21h18"/>
+                                    <path d="M5 21V7l8-4v18"/>
+                                    <path d="M19 21V11l-6-4"/>
+                                </svg>
+                            </div>
+                            <h3 class="entity-title">SouFacil</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric-row">
+                                <span class="metric-label">Venda Bruta</span>
+                                <span class="metric-value positive" id="vendaBrutaSouFacilComBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Venda Líquida</span>
+                                <span class="metric-value negative" id="vendaLiquidaSouFacilComBeneficio">-R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Mensalidade</span>
+                                <span class="metric-value positive" id="mensalidadeSouFacilComBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Clube Benefício</span>
+                                <span class="metric-value positive" id="clubeBeneficioSouFacilComBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row total">
+                                <span class="metric-label">Valor Líquido</span>
+                                <span class="metric-value highlight" id="valorLiquidoSouFacilComBeneficio">R$ 0,00</span>
+                            </div>
+                            
+                            <div class="revenue-breakdown">
+                                <div class="revenue-section guaranteed">
+                                    <h4 class="revenue-title">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                            <circle cx="12" cy="16" r="1"/>
+                                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                        </svg>
+                                        Renda Garantida
+                                    </h4>
+                                    <div class="revenue-item">
+                                        <span>Clube Benefício</span>
+                                        <span id="rendaGarantidaClubeBeneficio">R$ 0,00</span>
+                                    </div>
+                                    <div class="revenue-item">
+                                        <span>Mensalidade</span>
+                                        <span id="rendaGarantidaMensalidadeBeneficio">R$ 0,00</span>
+                                    </div>
+                                    <div class="revenue-total">
+                                        <span>Total Garantido</span>
+                                        <span id="totalGarantidoBeneficio">R$ 0,00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="revenue-section variable">
+                                    <h4 class="revenue-title">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 3v18h18"/>
+                                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                                        </svg>
+                                        Renda Variável
+                                    </h4>
+                                    <div class="revenue-item">
+                                        <span>Taxa Parcelamento</span>
+                                        <span id="rendaVariavelTaxaBeneficio">R$ 0,00</span>
+                                    </div>
+                                    <div class="revenue-item">
+                                        <span>Utilização Cliente</span>
+                                        <span id="rendaVariavelUtilizacaoBeneficio">R$ 0,00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenario-content hidden" id="sem-beneficio">
+                <div class="cards-grid">
+                    <!-- Lojista -->
+                    <div class="entity-card lojista">
+                        <div class="card-header">
+                            <div class="entity-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 7h-9"/>
+                                    <path d="M14 17H5"/>
+                                    <circle cx="17" cy="17" r="3"/>
+                                    <circle cx="7" cy="7" r="3"/>
+                                </svg>
+                            </div>
+                            <h3 class="entity-title">Lojista</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric-row">
+                                <span class="metric-label">Venda Líquida</span>
+                                <span class="metric-value positive" id="vendaLiquidaLojistaSemBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Mensalidade</span>
+                                <span class="metric-value negative" id="mensalidadeLojistaSemBeneficio">-R$ 0,00</span>
+                            </div>
+                            <div class="metric-row total">
+                                <span class="metric-label">Total a Receber</span>
+                                <span class="metric-value highlight" id="totalReceberLojistaSemBeneficio">R$ 0,00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cliente -->
+                    <div class="entity-card cliente">
+                        <div class="card-header">
+                            <div class="entity-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                            <h3 class="entity-title">Cliente</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric-row">
+                                <span class="metric-label">Valor da Compra</span>
+                                <span class="metric-value" id="valorCompraClienteSemBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Taxa Parcelamento</span>
+                                <span class="metric-value" id="taxaParcelamentoClienteSemBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Taxa do Cartão</span>
+                                <span class="metric-value" id="taxaCartaoClienteSemBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row total">
+                                <span class="metric-label">Total a Pagar</span>
+                                <span class="metric-value highlight" id="totalPagarClienteSemBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row parcela">
+                                <span class="metric-label">4x de</span>
+                                <span class="metric-value" id="parcelaClienteSemBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="no-benefits-tag">
+                                <span class="no-benefit-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="M15 9l-6 6"/>
+                                        <path d="M9 9l6 6"/>
+                                    </svg>
+                                    Sem prêmios
+                                </span>
+                                <span class="no-benefit-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="M15 9l-6 6"/>
+                                        <path d="M9 9l6 6"/>
+                                    </svg>
+                                    Sem cashback
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SouFacil -->
+                    <div class="entity-card soufacil">
+                        <div class="card-header">
+                            <div class="entity-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 21h18"/>
+                                    <path d="M5 21V7l8-4v18"/>
+                                    <path d="M19 21V11l-6-4"/>
+                                </svg>
+                            </div>
+                            <h3 class="entity-title">SouFacil</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="metric-row">
+                                <span class="metric-label">Venda Bruta</span>
+                                <span class="metric-value positive" id="vendaBrutaSouFacilSemBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Venda Líquida</span>
+                                <span class="metric-value negative" id="vendaLiquidaSouFacilSemBeneficio">-R$ 0,00</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Mensalidade</span>
+                                <span class="metric-value positive" id="mensalidadeSouFacilSemBeneficio">R$ 0,00</span>
+                            </div>
+                            <div class="metric-row total">
+                                <span class="metric-label">Valor Líquido</span>
+                                <span class="metric-value highlight" id="valorLiquidoSouFacilSemBeneficio">R$ 0,00</span>
+                            </div>
+                            
+                            <div class="revenue-breakdown">
+                                <div class="revenue-section variable">
+                                    <h4 class="revenue-title">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 3v18h18"/>
+                                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                                        </svg>
+                                        Renda Variável
+                                    </h4>
+                                    <p class="revenue-note">Todo o lucro fica com o cliente</p>
+                                    <div class="revenue-item">
+                                        <span>Taxa Parcelamento</span>
+                                        <span id="rendaVariavelTaxaSemBeneficio">R$ 0,00</span>
+                                    </div>
+                                    <div class="revenue-item">
+                                        <span>Taxa Utilização</span>
+                                        <span id="rendaVariavelUtilizacaoSemBeneficio">R$ 0,00</span>
+                                    </div>
+                                    <div class="revenue-total">
+                                        <span>Total Variável</span>
+                                        <span id="totalVariavelSemBeneficio">R$ 0,00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="summary-section">
+            <div class="summary-card">
+                <h2 class="summary-title">Resumo da Análise</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 7h-9"/>
+                                <path d="M14 17H5"/>
+                                <circle cx="17" cy="17" r="3"/>
+                                <circle cx="7" cy="7" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="summary-content">
+                            <h4>Lojista</h4>
+                            <p class="summary-metric">Diferença: <span id="diferencaTotalLojista">R$ 0,00</span></p>
+                            <p class="summary-detail">Vendas extras: <span id="vendasExtras">0</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div class="summary-content">
+                            <h4>Cliente</h4>
+                            <p class="summary-metric">Diferença: <span id="diferencaTotalCliente">R$ 0,00</span></p>
+                            <p class="summary-detail">Benefícios extras com clube</p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 21h18"/>
+                                <path d="M5 21V7l8-4v18"/>
+                                <path d="M19 21V11l-6-4"/>
+                            </svg>
+                        </div>
+                        <div class="summary-content">
+                            <h4>SouFacil</h4>
+                            <p class="summary-metric">Renda garantida: <span id="resumoGarantida">R$ 0,00</span></p>
+                            <p class="summary-detail" id="vantagemClube">Mesmo lucro, renda garantida</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script-v4.js"></script>
+</body>
+</html>
+
